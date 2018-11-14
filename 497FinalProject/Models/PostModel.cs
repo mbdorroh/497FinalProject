@@ -7,6 +7,7 @@ namespace _497FinalProject.Models
 {
     public class PostModel
     {
+        //post attributes
         public string Subject { get; set; }
         public string PostBody { get; set; }
         public string PostUserName { get; set; }
