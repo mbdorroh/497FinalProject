@@ -7,70 +7,72 @@ using _497FinalProject.Models;
 
 namespace _497FinalProject.Controllers
 {
-    public class ThreadController : Controller
+    public class ClassController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-
-        // GET: Thread
+        // GET: Class
         public ActionResult Index()
         {
-            return View();
+            return View(db.Classes.ToList());
         }
 
-        //// GET: Thread/Details/5
+        //// GET: Class/Details/5
         //public ActionResult Details(int id)
         //{
         //    return View();
         //}
 
-        // GET: Thread/Create
+        // GET: Class/Create
         //[Authorize(Roles = "Professor")]
-        public ActionResult CreateNewThread()
+        public ActionResult CreateNewClass()
         {
             return View();
         }
 
-        // POST: Thread/Create
+        // POST: Class/Create
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult Create(FormCollection collection, ThreadModel t )
+        public ActionResult Create(FormCollection collection, ClassModel c)
         {
             if (ModelState.IsValid)
             {
-                var thread = new ThreadModel {
-                    ThreadName = t.ThreadName,
-                    ThreadCategory = t.ThreadCategory,
-                    ClassID = t.ClassID,
-                    DateCreated = DateTime.Now,  };
-
+                var thread = new ClassModel
+                {
+                    ClassName = c.ClassName,
+                    ClassID = c.ClassID,
+                    Professor = c.Professor
+                    
+                };
                 db.SaveChanges();
+
             }
             return View(collection);
         }
 
 
-        // GET: Thread/Delete/5
+
+        // GET: Class/Delete/5
         //[Authorize(Roles = "Professor")]
-        public ActionResult DeleteThread(int id)
+        public ActionResult DeleteClass()
         {
             return View();
         }
 
-        // POST: Thread/Delete/5
+        // POST: Class/Delete/5
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult DeleteThread(FormCollection collection, ThreadModel t)
+        public ActionResult DeleteClass(FormCollection collection, ClassModel c)
         {
             if (ModelState.IsValid)
             {
-                var thread = new ThreadModel
+                var thread = new ClassModel
                 {
-                    ThreadName = t.ThreadName,
-                    ThreadCategory = t.ThreadCategory,
-                    ClassID = t.ClassID,
-                    DateCreated = DateTime.Now,
+                    ClassName = c.ClassName,
+                    ClassID = c.ClassID,
+                    Professor = c.Professor
+
                 };
-                db.Threads.Remove(t);
+                db.Classes.Remove(c);
                 db.SaveChanges();
 
             }
