@@ -7,9 +7,10 @@ namespace _497FinalProject.Models
 {
     public class ClassModel
     {
-        //class attributes
+        //class attributes for class model
+        public int ClassID { get; set; }
         public string ClassName { get; set; }
         public UserModel Professor { get; set; }
-        //add ref to threads
+        public List<ThreadModel> Threads;
     }
 }

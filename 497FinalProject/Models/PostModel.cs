@@ -7,7 +7,7 @@ namespace _497FinalProject.Models
 {
     public class PostModel
     {
-        //post attributes
+        //post attributes for post model
         public string Subject { get; set; }
         public string PostBody { get; set; }
         public string PostUserName { get; set; }
@@ -18,5 +18,6 @@ namespace _497FinalProject.Models
         public bool isSolution { get; set; }
         public int ThreadID { get; set; }
         public string Comment { get; set; }
+        public int PostID { get; set; }
     }
 }

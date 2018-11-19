@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,12 +7,13 @@ namespace _497FinalProject.Models
 {
     public class UserModel
     {
-        //user details
+        //user details for user model
         public string Name { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public int NumberOfPosts { get; set; }
         public string UserRole { get; set; }
+        public int UserID { get; set; }
         public List<ClassModel> Classes;
 
         //user permissions
@@ -23,7 +23,6 @@ namespace _497FinalProject.Models
         public bool CreateThread { get; set; }
         public bool CreateClass { get; set; }
         public bool CanPromote { get; set; }
-
 
     }
 }

@@ -5,8 +5,9 @@ using System.Web;
 
 namespace _497FinalProject.Models
 {
-    public class PublicClassThreadModel
+    public class ThreadModel
     {
+        //attributes for thread model
         public string ThreadName { get; set; }
         public string ThreadCategory { get; set; }
         public DateTime DateCreated { get; set; }
