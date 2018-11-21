@@ -14,6 +14,7 @@ namespace _497FinalProject.Models
         public string Password { get; set; }
         public int NumberOfPosts { get; set; }
         public string UserRole { get; set; }
+        [Key]
         public int UserID { get; set; }
         public List<ClassModel> Classes;
 

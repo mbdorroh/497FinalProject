@@ -159,6 +159,7 @@ namespace _497FinalProject.Controllers
                     UserRole = model.UserRole,
                     Password = model.Password
                 };
+                db.User.Add(user);
                 db.SaveChanges();
             }
 

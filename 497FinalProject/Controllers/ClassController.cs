@@ -13,7 +13,7 @@ namespace _497FinalProject.Controllers
         // GET: Class
         public ActionResult Index()
         {
-            return View(db.Classes.ToList());
+            return View(db.Class.ToList());
         }
 
         //// GET: Class/Details/5
@@ -72,7 +72,7 @@ namespace _497FinalProject.Controllers
                     Professor = c.Professor
 
                 };
-                db.Classes.Remove(c);
+                db.Class.Remove(c);
                 db.SaveChanges();
 
             }

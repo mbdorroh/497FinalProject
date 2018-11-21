@@ -33,7 +33,7 @@ namespace _497FinalProject.Controllers
         // POST: Thread/Create
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult Create(FormCollection collection, ThreadModel t )
+        public ActionResult CreateNewThread(FormCollection collection, ThreadModel t )
         {
             if (ModelState.IsValid)
             {
@@ -41,8 +41,11 @@ namespace _497FinalProject.Controllers
                     ThreadName = t.ThreadName,
                     ThreadCategory = t.ThreadCategory,
                     ClassID = t.ClassID,
-                    DateCreated = DateTime.Now,  };
+                    DateCreated = DateTime.Now,
+                    DateOfLastPost = DateTime.Now,
 
+                };
+                db.Thread.Add(thread);
                 db.SaveChanges();
             }
             return View(collection);
@@ -70,7 +73,7 @@ namespace _497FinalProject.Controllers
                     ClassID = t.ClassID,
                     DateCreated = DateTime.Now,
                 };
-                db.Threads.Remove(t);
+                db.Thread.Remove(thread);
                 db.SaveChanges();
 
             }

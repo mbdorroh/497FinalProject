@@ -10,6 +10,7 @@ namespace _497FinalProject.Models
     {
         //class attributes for class model
         [Display(Name = "Class ID")]
+        [Key]
         public int ClassID { get; set; }
         [Display(Name = "Class Name")]
         public string ClassName { get; set; }

@@ -19,6 +19,7 @@ namespace _497FinalProject.Models
         public bool isSolution { get; set; }
         public int ThreadID { get; set; }
         public string Comment { get; set; }
+        [Key]
         public int PostID { get; set; }
     }
 }

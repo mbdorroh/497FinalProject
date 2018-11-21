@@ -25,9 +25,9 @@ namespace _497FinalProject.Models
         {
         }
 
-        public DbSet<ClassModel> Classes { get; set; }
-        public DbSet<ThreadModel> Threads { get; set; }
-        public DbSet<PostModel> Posts { get; set; }
+        public DbSet<ClassModel> Class { get; set; }
+        public virtual DbSet<ThreadModel> Thread { get; set; }
+        public DbSet<PostModel> Post { get; set; }
         public DbSet<UserModel> User { get; set; }
 
         public static ApplicationDbContext Create()
