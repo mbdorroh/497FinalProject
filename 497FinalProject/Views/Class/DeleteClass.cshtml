@@ -12,21 +12,24 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.ClassName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ClassName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
         @Html.LabelFor(m => m.ClassID, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.ClassID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ClassID, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Professor, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.ClassName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ClassID, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.ClassName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ClassName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProfessorID, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ProfessorID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProfessorID, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">

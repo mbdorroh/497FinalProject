@@ -9,12 +9,19 @@ namespace _497FinalProject.Models
     public class UserModel
     {
         //user details for user model
+        [Required]
         public string Name { get; set; }
+        [Required]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
+        [Required]
         public string Password { get; set; }
         public int NumberOfPosts { get; set; }
+        [Required]
+        [Display(Name = "User Role")]
         public string UserRole { get; set; }
         [Key]
+        [Display(Name = "User ID")]
         public int UserID { get; set; }
         public List<ClassModel> Classes;
 
@@ -26,5 +33,6 @@ namespace _497FinalProject.Models
         public bool CreateClass { get; set; }
         public bool CanPromote { get; set; }
 
+        
     }
 }

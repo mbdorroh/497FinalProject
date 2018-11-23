@@ -11,17 +11,23 @@ namespace _497FinalProject.Models
         //class attributes for class model
         [Display(Name = "Class ID")]
         [Key]
+        [Required]
         public int ClassID { get; set; }
         [Display(Name = "Class Name")]
+        [Required]
         public string ClassName { get; set; }
         [Display(Name = "User ID")]
-        public UserModel Professor { get; set; }
+        [Required]
+        public int ProfessorID { get; set; }
         public List<ThreadModel> Threads;
 
         public IEnumerator<ClassModel> GetEnumerator()
         {
             return GetEnumerator();
         }
-        
+
+
+
+
     }
 }

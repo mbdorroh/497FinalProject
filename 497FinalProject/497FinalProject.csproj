@@ -214,6 +214,18 @@
     <Compile Include="Migrations\201811210122106_UpdatedModel.Designer.cs">
       <DependentUpon>201811210122106_UpdatedModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811231837114_RequirementsUpdated.cs" />
+    <Compile Include="Migrations\201811231837114_RequirementsUpdated.Designer.cs">
+      <DependentUpon>201811231837114_RequirementsUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811231928588_ClassAltered.cs" />
+    <Compile Include="Migrations\201811231928588_ClassAltered.Designer.cs">
+      <DependentUpon>201811231928588_ClassAltered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811232217327_UserModelAltered.cs" />
+    <Compile Include="Migrations\201811232217327_UserModelAltered.Designer.cs">
+      <DependentUpon>201811232217327_UserModelAltered.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassModel.cs" />
@@ -316,6 +328,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811210122106_UpdatedModel.resx">
       <DependentUpon>201811210122106_UpdatedModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811231837114_RequirementsUpdated.resx">
+      <DependentUpon>201811231837114_RequirementsUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811231928588_ClassAltered.resx">
+      <DependentUpon>201811231928588_ClassAltered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811232217327_UserModelAltered.resx">
+      <DependentUpon>201811232217327_UserModelAltered.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

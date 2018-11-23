@@ -17,7 +17,7 @@
             @Html.DisplayNameFor(model => model.ClassName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Professor)
+            @Html.DisplayNameFor(model => model.ProfessorID)
         </th>
         
         <th></th>
@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.ClassName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Professor)
+                @Html.DisplayFor(modelItem => item.ProfessorID)
             </td>
             <td>
                 @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: white;" })

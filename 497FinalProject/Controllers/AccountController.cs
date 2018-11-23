@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using _497FinalProject.Models;
+using System.Collections.Generic;
 
 namespace _497FinalProject.Controllers
 {
@@ -153,14 +154,50 @@ namespace _497FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+              
                 var user = new UserModel {
                     Name = model.Name,
                     UserName = model.UserName,
                     UserRole = model.UserRole,
                     Password = model.Password
                 };
+                var dbToList = db.User.ToList();
+                while (dbToList.Exists(x => x.UserName == model.UserName))
+                {
+                    ModelState.AddModelError("Validate", "Username already exists.");
+                    return View("Register");
+                }
+
+                if (user.UserRole == "Professor")
+                {
+                    user.CanDelete = true;
+                    user.CanEdit = true;
+                    user.CanPost = true;
+                    user.CanPromote = true;
+                    user.CreateClass = true;
+                    user.CreateThread = true;
+                }else if (user.UserRole == "TA")
+                {
+                    user.CanDelete = true;
+                    user.CanEdit = true;
+                    user.CanPost = true;
+                    user.CanPromote = false;
+                    user.CreateClass = false;
+                    user.CreateThread = false;
+                    
+                }
+                else if (user.UserRole == "Student")
+                {
+                    user.CanDelete = false;
+                    user.CanEdit = false;
+                    user.CanPost = true;
+                    user.CanPromote = false;
+                    user.CreateClass = false;
+                    user.CreateThread = false;
+                }
                 db.User.Add(user);
                 db.SaveChanges();
+                //add redirect to my account page when it is created
             }
 
             // If we got this far, something failed, redisplay form

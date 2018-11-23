@@ -13,7 +13,8 @@ namespace _497FinalProject.Controllers
         // GET: Class
         public ActionResult Index()
         {
-            return View(db.Class.ToList());
+            var classes = db.Class.ToList();
+            return View(classes);
         }
 
         //// GET: Class/Details/5
@@ -32,21 +33,27 @@ namespace _497FinalProject.Controllers
         // POST: Class/Create
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult Create(FormCollection collection, ClassModel c)
+        public ActionResult CreateNewClass(ClassModel model)
         {
             if (ModelState.IsValid)
             {
-                var thread = new ClassModel
+                var c = new ClassModel
                 {
-                    ClassName = c.ClassName,
-                    ClassID = c.ClassID,
-                    Professor = c.Professor
+                    ClassName = model.ClassName,
+                    ProfessorID =model.ProfessorID
                     
                 };
+                //var dbToList = db.Class.ToList();
+                //while (!dbToList.Exists(x => x.ProfessorID == c.ProfessorID))
+                //{
+                //    ModelState.AddModelError("Validate", "Professor ID does not exist.");
+                //    return View("CreateNewClass");
+                //}
+                db.Class.Add(c);
                 db.SaveChanges();
-
+                return RedirectToAction("Index", "Class");
             }
-            return View(collection);
+            return View(model);
         }
 
 
@@ -61,22 +68,29 @@ namespace _497FinalProject.Controllers
         // POST: Class/Delete/5
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult DeleteClass(FormCollection collection, ClassModel c)
+        public ActionResult DeleteClass( ClassModel model)
         {
             if (ModelState.IsValid)
             {
-                var thread = new ClassModel
+                var c = new ClassModel
                 {
-                    ClassName = c.ClassName,
-                    ClassID = c.ClassID,
-                    Professor = c.Professor
+                    ClassName = model.ClassName,
+                    ClassID = model.ClassID,
+                    ProfessorID = model.ProfessorID
 
                 };
-                db.Class.Remove(c);
+                var dbToList = db.Class.ToList();
+                while (!dbToList.Exists(x => x.ClassID == c.ClassID))
+                {
+                    ModelState.AddModelError("Validate", "Class ID does not exist.");
+                    return View("DeleteClass");
+                }
+                var index = db.Class.First(x => x.ClassID == c.ClassID);
+                db.Class.Remove(index);
                 db.SaveChanges();
 
             }
-            return View(collection);
+            return View(model);
         }
     }
 }
