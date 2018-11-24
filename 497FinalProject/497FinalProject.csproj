@@ -302,6 +302,8 @@
     <Content Include="Views\Thread\DeleteThread.cshtml" />
     <Content Include="Views\Account\MyAccount.cshtml" />
     <Content Include="Views\Class\Index.cshtml" />
+    <Content Include="Views\Class\ClassThreads.cshtml" />
+    <Content Include="Views\Class\ViewAllThreads.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

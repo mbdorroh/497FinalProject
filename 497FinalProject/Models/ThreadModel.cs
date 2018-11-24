@@ -15,8 +15,11 @@ namespace _497FinalProject.Models
         [Display(Name = "Thread Category")]
         [Required]
         public string ThreadCategory { get; set; }
+        [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
+        [Display(Name = "Date of Last Post")]
         public DateTime DateOfLastPost { get; set; }
+        [Display(Name = "No. of Posts")]
         public int NoOfPosts { get; set; }
         [Key]
         [Display(Name = "Thread ID")]

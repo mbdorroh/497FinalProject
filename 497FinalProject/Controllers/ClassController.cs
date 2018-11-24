@@ -10,6 +10,8 @@ namespace _497FinalProject.Controllers
     public class ClassController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        public static List<ThreadModel> threadList  = new List<ThreadModel> { };
+
         // GET: Class
         public ActionResult Index()
         {
@@ -56,6 +58,40 @@ namespace _497FinalProject.Controllers
             return View(model);
         }
 
+        // GET: All threads within one class
+        public ActionResult ViewAllThreads()
+        {
+            return View();
+        }
+
+        // POST: All threads within one class
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ViewAllThreads(ThreadModel thread)
+        {
+            threadList.Clear();
+            foreach (var x in db.Thread)
+            {
+                if (x.ClassID == thread.ClassID)
+                {
+                    threadList.Add(x);
+                }
+            }
+
+            var dbToList = db.Thread.ToList();
+            while (!dbToList.Exists(x => x.ClassID == thread.ClassID))
+            {
+                
+                return View("Index");
+            }
+
+            return RedirectToAction("ClassThreads");
+        }
+
+        // GET: Tweets/AuthorTweets/
+        public ActionResult ClassThreads()
+        {
+            return View(threadList);
+        }
 
 
         // GET: Class/Delete/5

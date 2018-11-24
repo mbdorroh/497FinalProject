@@ -1,12 +1,12 @@
-﻿@model _497FinalProject.Models.ClassModel
+﻿@model IEnumerable< _497FinalProject.Models.ClassModel >
 
 @{
     ViewBag.Title = "Index";
 }
 
-
+<h2>MIS Classes:</h2>
 <p>
-    @Html.ActionLink("Create New Class", "CreateNewClass", "Class", null, new { @style = "color: white;" })
+    @Html.ActionLink("Create New Class", "CreateNewClass", "Class", null, new { @style = "color: black;" })
 </p>
 <table class="table">
     <tr>
@@ -19,26 +19,32 @@
         <th>
             @Html.DisplayNameFor(model => model.ProfessorID)
         </th>
-        
+        <th>
+            @Html.DisplayNameFor(model => model.Threads)
+        </th>
+
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClassID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClassName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProfessorID)
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: white;" })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfessorID)
+        </td>
+        <td>
+            @Html.ActionLink("Threads", "ViewAllThreads", null, new { @style = "color: black;" })
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" })
+        </td>
+    </tr>
     }
 
 </table>
