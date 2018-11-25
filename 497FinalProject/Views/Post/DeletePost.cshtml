@@ -1,0 +1,50 @@
+﻿@model _497FinalProject.Models.PostModel
+@{
+    ViewBag.Title = "Delete Post";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("DeletePost", "Post", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Are you sure you want to delete this post?</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.ThreadID, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ThreadID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ThreadID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PostID, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PostID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PostUserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PostUserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PostUserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Delete" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<_497FinalProject.Models.PostModel>
+
+@{
+    ViewBag.Title = "Thread Posts";
+}
+
+<h2>View all posts within a thread</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreatePost", "Post", null, new { @style = "color: black;" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PostID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostUserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostBody)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimePost)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostBody)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimePost)
+            </td>
+            <td>
+
+                @Html.ActionLink("Delete", "DeletePost", "post", null, new { @style = "color: black;" })
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index", "Class", null, new { @style = "color: black;" })
+</div>
+
+
+

@@ -198,6 +198,7 @@
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ThreadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -233,6 +234,10 @@
     <Compile Include="Migrations\201811251917380_ClassUsers.cs" />
     <Compile Include="Migrations\201811251917380_ClassUsers.Designer.cs">
       <DependentUpon>201811251917380_ClassUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811252204455_PostModelEdit.cs" />
+    <Compile Include="Migrations\201811252204455_PostModelEdit.Designer.cs">
+      <DependentUpon>201811252204455_PostModelEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -312,6 +317,11 @@
     <Content Include="Views\Class\Index.cshtml" />
     <Content Include="Views\Class\ClassThreads.cshtml" />
     <Content Include="Views\Class\ViewAllThreads.cshtml" />
+    <Content Include="Views\Post\CreatePost.cshtml" />
+    <Content Include="Views\Post\EditPost.cshtml" />
+    <Content Include="Views\Post\DeletePost.cshtml" />
+    <Content Include="Views\Post\ViewPosts.cshtml" />
+    <Content Include="Views\Post\ThreadPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -353,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811251917380_ClassUsers.resx">
       <DependentUpon>201811251917380_ClassUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811252204455_PostModelEdit.resx">
+      <DependentUpon>201811252204455_PostModelEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

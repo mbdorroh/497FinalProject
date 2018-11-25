@@ -29,7 +29,12 @@
         <th>
             @Html.DisplayNameFor(model => model.DateOfLastPost)
         </th>
-        <th></th>
+        <th>
+           Posts
+        </th>
+        <th>
+            Actions
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -53,6 +58,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.DateOfLastPost)
         </td>
+        <th>
+        <td>
+            @Html.ActionLink("Posts", "ViewAllThreads", null, new { @style = "color: black;" })
+        </td>
+        </th>
         <td>
 
             @Html.ActionLink("Delete", "DeleteThread", "Thread", null, new { @style = "color: black;" })
