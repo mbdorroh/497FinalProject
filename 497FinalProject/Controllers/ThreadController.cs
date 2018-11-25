@@ -50,6 +50,13 @@ namespace _497FinalProject.Controllers
                     ModelState.AddModelError("Validate", "Class ID does not exist.");
                     return View("CreateNewThread");
                 }
+                foreach (var x in db.Class)
+                {
+                    if (x.ClassID== t.ClassID)
+                    {
+                        x.Threads.Add(thread);
+                    }
+                }
                 db.Thread.Add(thread);
                 db.SaveChanges();
             }
@@ -82,7 +89,14 @@ namespace _497FinalProject.Controllers
                     ModelState.AddModelError("Validate", "Thread ID does not exist.");
                     return View("DeleteThread");
                 }
-                var t = db.Thread.First(x => x.ThreadID == model.ThreadID);
+                var t = db.Thread.First(x => x.ThreadID == thread.ThreadID);
+                foreach (var x in db.Class)
+                {
+                    if (x.ClassID == model.ClassID)
+                    {
+                        x.Threads.Remove(t);
+                    }
+                }
                 db.Thread.Remove(t);
                 db.SaveChanges();
 

@@ -22,8 +22,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Threads)
         </th>
-
-        <th></th>
+        <th>
+            Number of Threads
+        </th>
+        <th>
+            Actions
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -42,7 +46,10 @@
             @Html.ActionLink("Threads", "ViewAllThreads", null, new { @style = "color: black;" })
         </td>
         <td>
-            @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" })
+            @Html.DisplayFor(modelItem => item.Threads.Count)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" }) | @Html.ActionLink("Join", "DeleteClass", null, new { @style = "color: black;" })
         </td>
     </tr>
     }

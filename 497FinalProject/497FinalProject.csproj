@@ -226,6 +226,14 @@
     <Compile Include="Migrations\201811232217327_UserModelAltered.Designer.cs">
       <DependentUpon>201811232217327_UserModelAltered.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811251742034_ThreadModelUpdated.cs" />
+    <Compile Include="Migrations\201811251742034_ThreadModelUpdated.Designer.cs">
+      <DependentUpon>201811251742034_ThreadModelUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811251917380_ClassUsers.cs" />
+    <Compile Include="Migrations\201811251917380_ClassUsers.Designer.cs">
+      <DependentUpon>201811251917380_ClassUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassModel.cs" />
@@ -304,6 +312,7 @@
     <Content Include="Views\Class\Index.cshtml" />
     <Content Include="Views\Class\ClassThreads.cshtml" />
     <Content Include="Views\Class\ViewAllThreads.cshtml" />
+    <Content Include="Views\Class\JoinClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -339,6 +348,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811232217327_UserModelAltered.resx">
       <DependentUpon>201811232217327_UserModelAltered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251742034_ThreadModelUpdated.resx">
+      <DependentUpon>201811251742034_ThreadModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251917380_ClassUsers.resx">
+      <DependentUpon>201811251917380_ClassUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
