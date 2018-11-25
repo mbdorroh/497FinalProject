@@ -312,7 +312,6 @@
     <Content Include="Views\Class\Index.cshtml" />
     <Content Include="Views\Class\ClassThreads.cshtml" />
     <Content Include="Views\Class\ViewAllThreads.cshtml" />
-    <Content Include="Views\Class\JoinClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
