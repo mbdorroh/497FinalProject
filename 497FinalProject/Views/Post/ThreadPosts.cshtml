@@ -9,6 +9,36 @@
 <p>
     @Html.ActionLink("Create New", "CreatePost", "Post", null, new { @style = "color: black;" })
 </p>
+@foreach (var item in Model)
+{
+
+    <body>
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-4" style="background-color:gray">
+                    
+                    <h1>  @Html.DisplayNameFor(model => model.PostID)</h1>
+                    <h2>@Html.DisplayFor(modelItem => item.PostID)</h2>
+                
+                </div>
+
+                <div class="col-md-6" style="background-color:lightskyblue">
+                    <h1>  @Html.DisplayNameFor(model => model.PostBody)</h1>
+                    <h2>@Html.DisplayFor(modelItem => item.PostBody)</h2>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        
+    </body>
+}
 <table class="table">
     <tr>
         <th>

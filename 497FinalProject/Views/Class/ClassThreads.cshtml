@@ -58,11 +58,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.DateOfLastPost)
         </td>
-        <th>
+        
         <td>
-            @Html.ActionLink("Posts", "ViewAllThreads", null, new { @style = "color: black;" })
+            @Html.ActionLink("Posts", "ViewPosts", "Post", null, new { @style = "color: black;" })
         </td>
-        </th>
+        
         <td>
 
             @Html.ActionLink("Delete", "DeleteThread", "Thread", null, new { @style = "color: black;" })
