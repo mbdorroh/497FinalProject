@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using _497FinalProject.Models;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace _497FinalProject.Controllers
 {
@@ -154,10 +155,16 @@ namespace _497FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //Initialize user/role managers
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id,"Student");
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -169,52 +176,7 @@ namespace _497FinalProject.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
-
-
-
-                //var user = new UserModel {
-                //    Name = model.Name,
-                //    UserName = model.UserName,
-                //    UserRole = model.UserRole,
-                //    Password = model.Password
-                //};
-                //var dbToList = db.User.ToList();
-                //while (dbToList.Exists(x => x.UserName == model.UserName))
-                //{
-                //    ModelState.AddModelError("Validate", "Username already exists.");
-                //    return View("Register");
-                //}
-
-                //if (user.UserRole == "Professor")
-                //{
-                //    user.CanDelete = true;
-                //    user.CanEdit = true;
-                //    user.CanPost = true;
-                //    user.CanPromote = true;
-                //    user.CreateClass = true;
-                //    user.CreateThread = true;
-                //}else if (user.UserRole == "TA")
-                //{
-                //    user.CanDelete = true;
-                //    user.CanEdit = true;
-                //    user.CanPost = true;
-                //    user.CanPromote = false;
-                //    user.CreateClass = false;
-                //    user.CreateThread = false;
-
-                //}
-                //else if (user.UserRole == "Student")
-                //{
-                //    user.CanDelete = false;
-                //    user.CanEdit = false;
-                //    user.CanPost = true;
-                //    user.CanPromote = false;
-                //    user.CreateClass = false;
-                //    user.CreateThread = false;
-                //}
-                //db.User.Add(user);
-                //db.SaveChanges();
-                ////add redirect to my account page when it is created
+               
             }
 
             // If we got this far, something failed, redisplay form

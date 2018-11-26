@@ -10,6 +10,7 @@ using _497FinalProject.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Mail;
 
 namespace _497FinalProject.Controllers
 {
@@ -155,9 +156,7 @@ namespace _497FinalProject.Controllers
 
             //Create admin
             var adminUser = new ApplicationUser { UserName = username, Email = formData["Email"], FirstName = formData["FirstName"], LastName = formData["LastName"]};
-
-
-
+            
             var createUserResult = UserManager.Create(adminUser, password);
 
             //Add to admin role
