@@ -1,0 +1,102 @@
+﻿@model _497FinalProject.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Assign Roles";
+}
+<br />
+<a href="@Url.Action("Users", "Manage")" class="btn btn-default btn-md">
+    <span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Back To Users
+</a>
+<h2>User Roles - @ViewBag.FirstName @ViewBag.LastName</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.Label("Professor: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="line-height:2.5">
+                @{
+                    if (@ViewBag.IsInProfessor == true)
+                    {
+                        <input checked="checked" id="isInProfessor" name="isInProfessor" type="checkbox">
+                    }
+                    else
+                    {
+                        <input id="isInProfessor" name="isInProfessor" type="checkbox">
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Admin: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="line-height:2.5">
+                @{
+                    if (@ViewBag.IsInAdmin == true)
+                    {
+                        <input checked="checked" id="isInAdmin" name="isInAdmin" type="checkbox">
+                    }
+                    else
+                    {
+                        <input id="isInAdmin" name="isInAdmin" type="checkbox">
+                    }
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Student: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="line-height:2.5">
+                @{
+                    if (@ViewBag.IsInStudent == true)
+                    {
+                        <input checked="checked" id="isInStudent" name="isInStudent" type="checkbox">
+                    }
+                    else
+                    {
+                        <input id="isInStudent" name="isInStudent" type="checkbox">
+                    }
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("TA: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="line-height:2.5">
+                @{
+                    if (@ViewBag.IsInTA == true)
+                    {
+                        <input checked="checked" id="isInTA" name="isInTA" type="checkbox">
+                    }
+                    else
+                    {
+                        <input id="isInTA" name="isInTA" type="checkbox">
+                    }
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("IT: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="line-height:2.5">
+                @{
+                    if (@ViewBag.IsInIT == true)
+                    {
+                        <input checked="checked" id="isInIT" name="isInIT" type="checkbox">
+                    }
+                    else
+                    {
+                        <input id="isInIT" name="isInIT" type="checkbox">
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-crimson" />
+            </div>
+        </div>
+    </div>
+}

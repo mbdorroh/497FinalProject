@@ -7,6 +7,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using _497FinalProject.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Net;
 
 namespace _497FinalProject.Controllers
 {
@@ -49,6 +52,319 @@ namespace _497FinalProject.Controllers
                 _userManager = value;
             }
         }
+
+
+        //
+        //GET: /Manage/Users/
+        //[Authorize(Roles = "admin, IT")]
+        public ActionResult Users()
+        {
+            var db = new ApplicationDbContext();
+            var users = db.Users.ToList().OrderBy(u => u.UserName);
+
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
+
+            var roleId = roles.Where(r => r.Value == "professor").FirstOrDefault().Key;
+            var professorUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+
+            roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
+            var adminUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+
+            roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
+            var itUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+
+            roleId = roles.Where(r => r.Value == "student").FirstOrDefault().Key;
+            var studentUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+
+            roleId = roles.Where(r => r.Value == "TA").FirstOrDefault().Key;
+            var taUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+            
+            var usersWithoutRole = users.Where(u => u.Roles.Count == 0).ToList();
+
+            ViewBag.professorUsers = professorUsers;
+            ViewBag.adminUsers = adminUsers;
+            ViewBag.itUsers = itUsers;
+            ViewBag.taUsers = taUsers;
+            ViewBag.studentUsers = studentUsers;
+            ViewBag.usersWithoutRole = usersWithoutRole;
+
+            return View();
+        }
+
+        //
+        //GET: /Manage/ResetUserPassword/userid
+        //[Authorize(Roles = "IT")]
+        public ActionResult ResetUserPassword(string Id)
+        {
+            UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+
+            userManager.RemovePassword(Id);
+
+            userManager.AddPassword(Id, "Alabama2018");
+
+            return RedirectToAction("Users");
+        }
+
+
+        //GET: /Manage/CreateNewUser
+        //[Authorize(Roles = "IT")]
+        public ActionResult CreateNewUser()
+        {
+
+            return View();
+        }
+
+        //
+        ////POST: /Manage/CreateNewUser
+        //[Authorize(Roles = "IT")]
+        [HttpPost]
+        public ActionResult CreateNewUser(FormCollection formData)
+        {
+            //Initialize DB
+            var db = new ApplicationDbContext();
+
+            //Initialize user/role managers
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+
+            //Make sure role exists
+            var roleName = formData["role"];
+            if (!RoleManager.RoleExists(roleName))
+            {
+                var createRoleResult = RoleManager.Create(new IdentityRole(roleName));
+            }
+
+            //Build username
+            var username = formData["FirstName"].ToLower()[0] + formData["LastName"].ToLower();
+
+            if (db.Users.Any(u => u.UserName == username))
+            {
+                //increment username
+                int i = 1;
+                while (db.Users.Any(u => u.UserName == username + i))
+                {
+                    i++;
+                }
+
+                username = username + i;
+            }
+
+            //Generate password
+            string password = "Alabama2018";
+
+            //Create admin
+            var adminUser = new ApplicationUser { UserName = username, Email = formData["Email"], FirstName = formData["FirstName"], LastName = formData["LastName"]};
+
+
+
+            var createUserResult = UserManager.Create(adminUser, password);
+
+            //Add to admin role
+            if (createUserResult.Succeeded)
+            {
+                var result = UserManager.AddToRole(adminUser.Id, roleName);
+            }
+
+            return RedirectToAction("Users");
+        }
+
+        // GET: Manage/DeleteUser/5
+        //[Authorize(Roles = "IT")]
+        public ActionResult DeleteUser(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //Initialize db
+            var db = new ApplicationDbContext();
+
+            //Initialize user/role managers
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+
+            //Get the user
+            var user = UserManager.FindById(id);
+
+            Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
+            var roleId = roles.Where(r => r.Value == "student").FirstOrDefault().Key;
+
+         
+            var rolesForUser = UserManager.GetRoles(id);
+
+            if (rolesForUser.Count() > 0)
+            {
+                foreach (var item in rolesForUser.ToList())
+                {
+                    // item should be the name of the role
+                    var result = UserManager.RemoveFromRole(user.Id, item);
+                }
+            }
+
+            var logins = user.Logins;
+
+            foreach (var login in logins.ToList())
+            {
+                UserManager.RemoveLogin(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+            }
+
+            UserManager.Delete(user);
+
+            return RedirectToAction("Users");
+        }
+
+        //[Authorize(Roles = "IT")]
+        public ActionResult AssignRoles(string id)
+        {
+            var db = new ApplicationDbContext();
+
+            var user = db.Users.Find(id);
+
+            ViewBag.FirstName = user.FirstName;
+            ViewBag.LastName = user.LastName;
+
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
+
+            bool isInProfessor = false;
+            bool isInAdmin = false;
+            bool isInStudent = false;
+            bool isInTA = false;
+            bool isInIT = false;
+
+            var roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
+            if (user.Roles.Any(r => r.RoleId == roleId))
+            {
+                isInAdmin = true;
+            }
+
+            roleId = roles.Where(r => r.Value == "student").FirstOrDefault().Key;
+            if (user.Roles.Any(r => r.RoleId == roleId))
+            {
+                isInStudent = true;
+            }
+
+            roleId = roles.Where(r => r.Value == "ta").FirstOrDefault().Key;
+            if (user.Roles.Any(r => r.RoleId == roleId))
+            {
+                isInTA = true;
+            }
+
+            roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
+            if (user.Roles.Any(r => r.RoleId == roleId))
+            {
+                isInIT = true;
+            }
+
+            roleId = roles.Where(r => r.Value == "professor").FirstOrDefault().Key;
+            if (user.Roles.Any(r => r.RoleId == roleId))
+            {
+                isInProfessor = true;
+            }
+
+          
+
+            ViewBag.IsInProfessor = isInProfessor;
+            ViewBag.IsInAdmin = isInAdmin;
+            ViewBag.IsInStudent = isInStudent;
+            ViewBag.IsInTA = isInTA;
+            ViewBag.IsInIT = isInIT;
+
+            return View(user);
+        }
+
+        //[Authorize(Roles = "IT")]
+        [HttpPost]
+        public ActionResult AssignRoles(string id, FormCollection form)
+        {
+            var db = new ApplicationDbContext();
+
+            var user = db.Users.Find(id);
+
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+
+            if (form["isInIT"] != null)
+            {
+                if (!UserManager.IsInRole(id, "IT"))
+                {
+                    UserManager.AddToRole(id, "IT");
+                }
+            }
+            else
+            {
+                if (UserManager.IsInRole(id, "IT"))
+                {
+                    UserManager.RemoveFromRole(id, "IT");
+                }
+            }
+
+            if (form["isInAdmin"] != null)
+            {
+                if (!UserManager.IsInRole(id, "admin"))
+                {
+                    UserManager.AddToRole(id, "admin");
+                }
+            }
+            else
+            {
+                if (UserManager.IsInRole(id, "admin"))
+                {
+                    UserManager.RemoveFromRole(id, "admin");
+                }
+            }
+
+            if (form["isInStudent"] != null)
+            {
+                if (!UserManager.IsInRole(id, "student"))
+                {
+                    UserManager.AddToRole(id, "student");
+                }
+            }
+            else
+            {
+                if (UserManager.IsInRole(id, "student"))
+                {
+                    UserManager.RemoveFromRole(id, "student");
+                }
+            }
+
+            if (form["isInTA"] != null)
+            {
+                if (!UserManager.IsInRole(id, "ta"))
+                {
+                    UserManager.AddToRole(id, "ta");
+                }
+            }
+            else
+            {
+                if (UserManager.IsInRole(id, "ta"))
+                {
+                    UserManager.RemoveFromRole(id, "ta");
+                }
+            }
+
+            if (form["isInProfessor"] != null)
+            {
+                if (!UserManager.IsInRole(id, "professor"))
+                {
+                    UserManager.AddToRole(id, "professor");
+                }
+            }
+            else
+            {
+                if (UserManager.IsInRole(id, "professor"))
+                {
+                    UserManager.RemoveFromRole(id, "professor");
+                }
+            }
+
+            return RedirectToAction("Users", "Manage");
+        }
+
+
 
         //
         // GET: /Manage/Index

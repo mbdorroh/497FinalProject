@@ -150,54 +150,71 @@ namespace _497FinalProject.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(UserModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-              
-                var user = new UserModel {
-                    Name = model.Name,
-                    UserName = model.UserName,
-                    UserRole = model.UserRole,
-                    Password = model.Password
-                };
-                var dbToList = db.User.ToList();
-                while (dbToList.Exists(x => x.UserName == model.UserName))
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
                 {
-                    ModelState.AddModelError("Validate", "Username already exists.");
-                    return View("Register");
-                }
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                if (user.UserRole == "Professor")
-                {
-                    user.CanDelete = true;
-                    user.CanEdit = true;
-                    user.CanPost = true;
-                    user.CanPromote = true;
-                    user.CreateClass = true;
-                    user.CreateThread = true;
-                }else if (user.UserRole == "TA")
-                {
-                    user.CanDelete = true;
-                    user.CanEdit = true;
-                    user.CanPost = true;
-                    user.CanPromote = false;
-                    user.CreateClass = false;
-                    user.CreateThread = false;
-                    
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
                 }
-                else if (user.UserRole == "Student")
-                {
-                    user.CanDelete = false;
-                    user.CanEdit = false;
-                    user.CanPost = true;
-                    user.CanPromote = false;
-                    user.CreateClass = false;
-                    user.CreateThread = false;
-                }
-                db.User.Add(user);
-                db.SaveChanges();
-                //add redirect to my account page when it is created
+                AddErrors(result);
+
+
+
+                //var user = new UserModel {
+                //    Name = model.Name,
+                //    UserName = model.UserName,
+                //    UserRole = model.UserRole,
+                //    Password = model.Password
+                //};
+                //var dbToList = db.User.ToList();
+                //while (dbToList.Exists(x => x.UserName == model.UserName))
+                //{
+                //    ModelState.AddModelError("Validate", "Username already exists.");
+                //    return View("Register");
+                //}
+
+                //if (user.UserRole == "Professor")
+                //{
+                //    user.CanDelete = true;
+                //    user.CanEdit = true;
+                //    user.CanPost = true;
+                //    user.CanPromote = true;
+                //    user.CreateClass = true;
+                //    user.CreateThread = true;
+                //}else if (user.UserRole == "TA")
+                //{
+                //    user.CanDelete = true;
+                //    user.CanEdit = true;
+                //    user.CanPost = true;
+                //    user.CanPromote = false;
+                //    user.CreateClass = false;
+                //    user.CreateThread = false;
+
+                //}
+                //else if (user.UserRole == "Student")
+                //{
+                //    user.CanDelete = false;
+                //    user.CanEdit = false;
+                //    user.CanPost = true;
+                //    user.CanPromote = false;
+                //    user.CreateClass = false;
+                //    user.CreateThread = false;
+                //}
+                //db.User.Add(user);
+                //db.SaveChanges();
+                ////add redirect to my account page when it is created
             }
 
             // If we got this far, something failed, redisplay form
