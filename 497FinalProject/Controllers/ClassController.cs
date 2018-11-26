@@ -83,7 +83,10 @@ namespace _497FinalProject.Controllers
                 
                 return View("Index");
             }
-
+            if (threadList == null)
+            {
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("ClassThreads");
         }
 

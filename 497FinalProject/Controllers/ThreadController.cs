@@ -54,7 +54,7 @@ namespace _497FinalProject.Controllers
                 {
                     if (x.ClassID== t.ClassID)
                     {
-                        x.Threads.Add(thread);
+                        x.NoOfThreads++;
                     }
                 }
                 db.Thread.Add(thread);
@@ -94,7 +94,7 @@ namespace _497FinalProject.Controllers
                 {
                     if (x.ClassID == model.ClassID)
                     {
-                        x.Threads.Remove(t);
+                        x.NoOfThreads--;
                     }
                 }
                 db.Thread.Remove(t);

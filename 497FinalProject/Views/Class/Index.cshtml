@@ -43,13 +43,23 @@
             @Html.DisplayFor(modelItem => item.ProfessorID)
         </td>
         <td>
-            @Html.ActionLink("Threads", "ViewAllThreads", null, new { @style = "color: black;" })
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Threads.Count)
         </td>
+        @if (item.NoOfThreads != 0)
+        {
+            <td>
+                @Html.ActionLink("Threads", "ViewAllThreads", null, new { @style = "color: black;" })
+            </td>
+        }
+        else
+        {
+            <td>
+                No Threads
+            </td>
+        }
+
         <td>
-            @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" }) 
+            @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" })
         </td>
     </tr>
     }

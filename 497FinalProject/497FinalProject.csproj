@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201811252204455_PostModelEdit.Designer.cs">
       <DependentUpon>201811252204455_PostModelEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811261623534_CountAdded.cs" />
+    <Compile Include="Migrations\201811261623534_CountAdded.Designer.cs">
+      <DependentUpon>201811261623534_CountAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassModel.cs" />
@@ -366,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811252204455_PostModelEdit.resx">
       <DependentUpon>201811252204455_PostModelEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261623534_CountAdded.resx">
+      <DependentUpon>201811261623534_CountAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

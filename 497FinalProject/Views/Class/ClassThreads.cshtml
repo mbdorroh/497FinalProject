@@ -58,11 +58,20 @@
         <td>
             @Html.DisplayFor(modelItem => item.DateOfLastPost)
         </td>
-        
-        <td>
-            @Html.ActionLink("Posts", "ViewPosts", "Post", null, new { @style = "color: black;" })
-        </td>
-        
+        @if (item.NoOfPosts != 0)
+        {
+            <td>
+                @Html.ActionLink("Posts", "ViewPosts", "Post", null, new { @style = "color: black;" })
+            </td>
+        }
+        else
+        {
+            <td>
+                No Posts
+            </td>
+        }
+
+
         <td>
 
             @Html.ActionLink("Delete", "DeleteThread", "Thread", null, new { @style = "color: black;" })
