@@ -53,12 +53,12 @@ namespace _497FinalProject.Controllers
                     ModelState.AddModelError("Validate", "Thread ID does not exist.");
                     return View("CreatePost");
                 }
-                var dbList = db.User.ToList();
-                while (!dbList.Exists(x => x.UserName == post.PostUserName))
-                {
-                    ModelState.AddModelError("Validate", "Username does not exist.");
-                    return View("CreatePost");
-                }
+                //var dbList = db.User.ToList();
+                //while (!dbList.Exists(x => x.UserName == post.PostUserName ))
+                //{
+                //    ModelState.AddModelError("Validate", "Username does not exist.");
+                //    return View("CreatePost");
+                //}
                 foreach (var x in db.Thread)
                 {
                     if (x.ThreadID == post.ThreadID)
