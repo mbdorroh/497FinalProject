@@ -19,8 +19,8 @@ namespace _497FinalProject.Models
         [Display(Name = "User ID")]
         [Required]
         public int ProfessorID { get; set; }
-        public List<ThreadModel> Threads { get; set; } = new List<ThreadModel>();
-        public List<UserModel> Users { get; set; } = new List<UserModel>();
+        public ICollection<ThreadModel> Threads { get; set; }
+        public ICollection<UserModel> Users { get; set; }
         [Display(Name = "No. of Threads")]
         public int NoOfThreads { get; set; }
         public IEnumerator<ClassModel> GetEnumerator()
