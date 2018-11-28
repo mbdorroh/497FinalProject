@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -16,7 +17,9 @@ namespace _497FinalProject.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         public int NumberOfPosts { get; set; }
-        
+        public virtual ICollection<ClassModel> Classes { get; set; }
+        public virtual ICollection<PostModel> Posts { get; set; }
+
 
         //user permissions
         public bool CanEdit { get; set; }
