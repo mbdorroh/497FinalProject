@@ -247,6 +247,10 @@
     <Compile Include="Migrations\201811261900263_UserModelChanged.Designer.cs">
       <DependentUpon>201811261900263_UserModelChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811280357536_MinorKeyEdits.cs" />
+    <Compile Include="Migrations\201811280357536_MinorKeyEdits.Designer.cs">
+      <DependentUpon>201811280357536_MinorKeyEdits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClassModel.cs" />
@@ -383,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811261900263_UserModelChanged.resx">
       <DependentUpon>201811261900263_UserModelChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811280357536_MinorKeyEdits.resx">
+      <DependentUpon>201811280357536_MinorKeyEdits.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

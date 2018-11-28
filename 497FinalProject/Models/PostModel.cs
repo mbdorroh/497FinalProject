@@ -23,7 +23,7 @@ namespace _497FinalProject.Models
         public int Approval { get; set; }
         public int Disapproval { get; set; }
         public bool isSolution { get; set; }
-        [ForeignKey("ThreadModel")]
+        //[ForeignKey("ThreadModel")]
         public int ThreadID { get; set; }
         public string Comment { get; set; }
         [Key]
