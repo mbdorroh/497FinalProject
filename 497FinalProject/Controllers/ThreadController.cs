@@ -33,8 +33,10 @@ namespace _497FinalProject.Controllers
         //[Authorize(Roles = "Professor")]
         public ActionResult CreateNewThread(ThreadModel t )
         {
+            //check model is valid
             if (ModelState.IsValid)
             {
+                //create thread model
                 var thread = new ThreadModel {
                     ThreadName = t.ThreadName,
                     ThreadCategory = t.ThreadCategory,
@@ -43,13 +45,14 @@ namespace _497FinalProject.Controllers
                     DateOfLastPost = DateTime.Now,
 
                 };
-                
+                //validate class ID exists
                 var dbToList = db.Class.ToList();
                 while (!dbToList.Exists(x => x.ClassID == t.ClassID))
                 {
                     ModelState.AddModelError("Validate", "Class ID does not exist.");
                     return View("CreateNewThread");
                 }
+                //increase no of threads for class ID
                 foreach (var x in db.Class)
                 {
                     if (x.ClassID== t.ClassID)
@@ -57,6 +60,7 @@ namespace _497FinalProject.Controllers
                         x.NoOfThreads++;
                     }
                 }
+                //Add to database
                 db.Thread.Add(thread);
                 db.SaveChanges();
             }
@@ -76,19 +80,23 @@ namespace _497FinalProject.Controllers
         //[Authorize(Roles = "Professor")]
         public ActionResult DeleteThread( ThreadModel model)
         {
+            //check model is valid
             if (ModelState.IsValid)
             {
+                //create thread model
                 var thread = new ThreadModel
                 {
                     ThreadID = model.ThreadID,
                     ThreadName = model.ThreadName,
                 };
+                //validate thread id exists
                 var dbToList = db.Thread.ToList();
                 while (!dbToList.Exists(x => x.ThreadID == model.ThreadID))
                 {
                     ModelState.AddModelError("Validate", "Thread ID does not exist.");
                     return View("DeleteThread");
                 }
+                //decrease no of threads per class
                 var t = db.Thread.First(x => x.ThreadID == thread.ThreadID);
                 foreach (var x in db.Class)
                 {
@@ -97,6 +105,7 @@ namespace _497FinalProject.Controllers
                         x.NoOfThreads--;
                     }
                 }
+                //remove from database
                 db.Thread.Remove(t);
                 db.SaveChanges();
 

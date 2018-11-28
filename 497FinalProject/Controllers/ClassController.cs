@@ -15,6 +15,7 @@ namespace _497FinalProject.Controllers
         // GET: Class
         public ActionResult Index()
         {
+            //get list of classes
             var classes = db.Class.ToList();
             return View(classes);
         }
@@ -37,20 +38,18 @@ namespace _497FinalProject.Controllers
         //[Authorize(Roles = "Professor")]
         public ActionResult CreateNewClass(ClassModel model)
         {
+           
+            //check model is valid
             if (ModelState.IsValid)
             {
+                //create class model
                 var c = new ClassModel
                 {
                     ClassName = model.ClassName,
-                    ProfessorID =model.ProfessorID
                     
                 };
-                //var dbToList = db.Class.ToList();
-                //while (!dbToList.Exists(x => x.ProfessorID == c.ProfessorID))
-                //{
-                //    ModelState.AddModelError("Validate", "Professor ID does not exist.");
-                //    return View("CreateNewClass");
-                //}
+          
+                //add to database
                 db.Class.Add(c);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Class");
@@ -68,6 +67,7 @@ namespace _497FinalProject.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ViewAllThreads(ThreadModel thread)
         {
+            //put threads in thread db table into a list for each class
             threadList.Clear();
             foreach (var x in db.Thread)
             {
@@ -77,6 +77,7 @@ namespace _497FinalProject.Controllers
                 }
             }
 
+            //validate the class exists and redirect if not
             var dbToList = db.Thread.ToList();
             while (!dbToList.Exists(x => x.ClassID == thread.ClassID))
             {
@@ -109,8 +110,10 @@ namespace _497FinalProject.Controllers
         //[Authorize(Roles = "Professor")]
         public ActionResult DeleteClass( ClassModel model)
         {
+            //check model is valid
             if (ModelState.IsValid)
             {
+                //create class model
                 var c = new ClassModel
                 {
                     ClassName = model.ClassName,
@@ -118,6 +121,7 @@ namespace _497FinalProject.Controllers
                     ProfessorID = model.ProfessorID
 
                 };
+                //validate class ID exists
                 var dbToList = db.Class.ToList();
                 while (!dbToList.Exists(x => x.ClassID == c.ClassID))
                 {
@@ -125,6 +129,7 @@ namespace _497FinalProject.Controllers
                     return View("DeleteClass");
                 }
                 var index = db.Class.First(x => x.ClassID == c.ClassID);
+                //remove from database
                 db.Class.Remove(index);
                 db.SaveChanges();
 
