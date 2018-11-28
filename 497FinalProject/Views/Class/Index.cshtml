@@ -43,7 +43,7 @@
             @Html.DisplayFor(modelItem => item.ProfessorID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NoOfThreads)
+            @Html.DisplayFor(modelItem => item.Threads.Count)
         </td>
         @if (item.NoOfThreads != 0)
         {

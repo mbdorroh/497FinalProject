@@ -153,11 +153,6 @@ namespace _497FinalProject.Controllers
 
             //Generate password
             string password = "Alabama2018";
-            
- //Generate password
-                        //RandomGenerator rand = new RandomGenerator();
-                        //var password = rand.UpperAlphaNum(12);
-
 
             //Create admin
             var adminUser = new ApplicationUser { UserName = username, Email = formData["Email"], FirstName = formData["FirstName"], LastName = formData["LastName"]};
