@@ -69,6 +69,7 @@ namespace _497FinalProject.Controllers
                 }
                 db.Post.Add(post);
                 db.SaveChanges();
+                return RedirectToAction("Index","Class");
             }
             return View(model);
         }
@@ -97,7 +98,7 @@ namespace _497FinalProject.Controllers
             p.PostBody = model.PostBody;
             p.Subject = model.Subject;
             db.SaveChanges();
-            return View(model);
+            return View();
         }
 
         // GET: All posts within one thread
@@ -180,7 +181,7 @@ namespace _497FinalProject.Controllers
                 }
                 db.Post.Remove(p);
                 db.SaveChanges();
-
+                return RedirectToAction("Index", "Class");
             }
             return View(model);
         }

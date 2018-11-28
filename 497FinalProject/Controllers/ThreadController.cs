@@ -59,6 +59,7 @@ namespace _497FinalProject.Controllers
                 }
                 db.Thread.Add(thread);
                 db.SaveChanges();
+                return RedirectToAction("Index","Class");
             }
             return View(t);
         }
@@ -99,7 +100,7 @@ namespace _497FinalProject.Controllers
                 }
                 db.Thread.Remove(t);
                 db.SaveChanges();
-
+                return RedirectToAction("Index", "Class");
             }
             return View(model);
         }

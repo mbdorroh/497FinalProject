@@ -127,7 +127,7 @@ namespace _497FinalProject.Controllers
                 var index = db.Class.First(x => x.ClassID == c.ClassID);
                 db.Class.Remove(index);
                 db.SaveChanges();
-
+                return RedirectToAction("Index", "Class");
             }
             return View(model);
         }

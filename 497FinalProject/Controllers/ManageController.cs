@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
+using System.Web.Security;
 
 namespace _497FinalProject.Controllers
 {
@@ -152,7 +153,8 @@ namespace _497FinalProject.Controllers
             }
 
             //Generate password
-            string password = "Alabama2018";
+            //string password = "Alabama2018";
+            string password = Membership.GeneratePassword(12, 1);
 
             //Create admin
             var adminUser = new ApplicationUser { UserName = username, Email = formData["Email"], FirstName = formData["FirstName"], LastName = formData["LastName"]};
@@ -164,6 +166,36 @@ namespace _497FinalProject.Controllers
             {
                 var result = UserManager.AddToRole(adminUser.Id, roleName);
             }
+
+            try
+            {
+                //Send Email
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(adminUser.Email));  // replace with valid value 
+                message.From = new MailAddress("mbdorroh@crimson.ua.edu");  // replace with valid value
+                message.Subject = "IMPORTANT: MIS Forum Account Information";
+                message.Body = string.Format("<p>You can access your account on our website with the following credentials:</p><ul><li><strong>username: </strong>" + adminUser.UserName + "</li><li><strong>password: </strong>" + password + "</li><br /><br />This is an automated email. PLEASE DO NOT REPLY");
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "",  // replace with valid value
+                        Password = ""          // replace with valid value
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp-mail.outlook.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.Send(message);
+                }
+            }
+            catch
+            {
+
+            }
+
 
             return RedirectToAction("Users");
         }
