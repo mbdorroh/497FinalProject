@@ -26,5 +26,6 @@ namespace _497FinalProject.Models
         public int ThreadID { get; set; }
         [Display(Name = "Class ID")]
         public int ClassID { get; set; }
+        public ICollection<PostModel> Posts { get; set; }
     }
 }

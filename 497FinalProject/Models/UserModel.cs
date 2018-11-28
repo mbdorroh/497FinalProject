@@ -23,7 +23,7 @@ namespace _497FinalProject.Models
         [Key]
         [Display(Name = "User ID")]
         public int UserID { get; set; }
-        public ICollection<ClassModel> Classes;
+        
 
         //user permissions
         public bool CanEdit { get; set; }
