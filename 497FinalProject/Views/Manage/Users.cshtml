@@ -70,14 +70,18 @@
         </div>
     </div>
 
+<<<<<<< HEAD
 
     @*<div class="panel panel-default">
+=======
+    <div class="panel panel-default">
+>>>>>>> parent of 8943120... Register method
         <div class="panel-heading">
             <h4 class="panel-title accordion-labels header-crimson">
                 <a data-toggle="collapse" data-parent="#accordion" href="#demo1">Admin<span class="glyphicon glyphicon-menu-down accordion-arrows"></span></a>
             </h4>
-        </div>*@
-        @*<div id="demo1" class="panel-collapse collapse">
+        </div>
+        <div id="demo1" class="panel-collapse collapse">
             <div class="panel-body">
                 <table class="table table-hover table-bordered table-condensed">
                     <tr>
@@ -93,9 +97,9 @@
                         <th class="col-centered">
                             Actions
                         </th>
-                    </tr>*@
+                    </tr>
 
-                    @*@foreach (var item in ViewBag.adminUsers)
+                    @foreach (var item in ViewBag.adminUsers)
                     {
                         <tr>
                             <td>
@@ -117,11 +121,11 @@
                                 @Html.ActionLink("Roles", "AssignRoles", new { id = item.Id })
                             </td>
                         </tr>
-                    }*@
-                @*</table>
+                    }
+                </table>
             </div>
         </div>
-    </div>*@
+    </div>
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -228,6 +232,113 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
    
+=======
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title accordion-labels header-crimson">
+                <a data-toggle="collapse" data-parent="#accordion" href="#demo5">IT<span class="glyphicon glyphicon-menu-down accordion-arrows"></span></a>
+            </h4>
+        </div>
+        <div id="demo5" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table table-hover table-bordered table-condensed">
+                    <tr>
+                        <th class="col-centered">
+                            UserName
+                        </th>
+                        <th class="col-centered">
+                            Name
+                        </th>
+                        <th class="col-centered">
+                            Email
+                        </th>
+                        
+                        <th class="col-centered">
+                            Actions
+                        </th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.itUsers)
+                    {
+                        <tr>
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.LastName, @item.FirstName
+                            </td>
+                            <td>
+                                @item.Email
+                            </td>
+                            
+                            <td class="col-centered">
+                                @Html.ActionLink("Reset Password", "ResetUserPassword", new { id = item.Id }, new { onclick = "return confirm('Reset password to Alabama2018?');" }) |
+                                @*@if (item.Intern == null)
+                                {
+                                    @Html.ActionLink("Delete", "DeleteUser", new { id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this user?');" })<span> |</span>
+                                }*@
+                                @Html.ActionLink("Roles", "AssignRoles", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    
+
+    @{
+        if (ViewBag.usersWithoutRole.Count > 0)
+        {
+            <div><h4 class="header-crimson">No Role</h4></div>
+            <table class="table table-hover table-bordered table-condensed">
+                <tr>
+                    <th class="col-centered">
+                        UserName
+                    </th>
+                    <th class="col-centered">
+                        Name
+                    </th>
+                    <th class="col-centered">
+                        Email
+                    </th>
+                  
+                    <th class="col-centered">
+                        Actions
+                    </th>
+                </tr>
+
+                @foreach (var item in ViewBag.usersWithoutRole)
+                {
+                    <tr>
+                        <td>
+                            @item.UserName
+                        </td>
+                        <td>
+                            @item.LastName, @item.FirstName
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        
+                        <td class="col-centered">
+                            @Html.ActionLink("Reset Password", "ResetUserPassword", new { id = item.Id }, new { onclick = "return confirm('Reset password to Alabama2018?');" }) |
+                            @*@if (item.Intern == null)
+                            {
+                                @Html.ActionLink("Delete", "DeleteUser", new { id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this user?');" })<span> |</span>
+                            }*@
+                            @Html.ActionLink("Roles", "AssignRoles", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+</div>
+
+>>>>>>> parent of 8943120... Register method
 

@@ -155,29 +155,30 @@ namespace _497FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                
 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                //Make sure role exists
+                
+                if (!RoleManager.RoleExists("Student"))
                 {
-                    // Make sure role exists
-                    
-                   
-                    var RoleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    var RoleManage = new RoleManager<IdentityRole>(RoleStore);
-                    if (!RoleManage.RoleExists("Student"))
-                    {
-                        var createRoleResult = RoleManage.Create(new IdentityRole("Student"));
-                    }
-                    await RoleManage.CreateAsync(new IdentityRole("Student"));
-                    await UserManager.AddToRoleAsync(user.Id, "Student");
-
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    return RedirectToAction("Index", "Home");
+                    var createRoleResult = RoleManager.Create(new IdentityRole("Student"));
                 }
-                AddErrors(result);
 
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                //var result = await UserManager.CreateAsync(user, model.Password);
+                //if (result.Succeeded)
+                //{
+                //    var RoleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                //    var RoleManage = new RoleManager<IdentityRole>(RoleStore);
+                //    await RoleManage.CreateAsync(new IdentityRole("Professor"));
+                //    await UserManager.AddToRoleAsync(user.Id, "Professor");
+
+                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser:false);
+
+                //    return RedirectToAction("Index", "Home");
+                //}
+                //AddErrors(result);
+               
             }
 
             // If we got this far, something failed, redisplay form
