@@ -149,7 +149,6 @@ namespace _497FinalProject.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-<<<<<<< HEAD
         //[AllowAnonymous]
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> Register(RegisterViewModel model)
@@ -185,43 +184,6 @@ namespace _497FinalProject.Controllers
         //    // If we got this far, something failed, redisplay form
         //    return View(model);
         //}
-=======
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                
-
-                //Make sure role exists
-                
-                if (!RoleManager.RoleExists("Student"))
-                {
-                    var createRoleResult = RoleManager.Create(new IdentityRole("Student"));
-                }
-
-                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    var RoleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                //    var RoleManage = new RoleManager<IdentityRole>(RoleStore);
-                //    await RoleManage.CreateAsync(new IdentityRole("Professor"));
-                //    await UserManager.AddToRoleAsync(user.Id, "Professor");
-
-                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser:false);
-
-                //    return RedirectToAction("Index", "Home");
-                //}
-                //AddErrors(result);
-               
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
->>>>>>> parent of 8943120... Register method
 
         //
         // GET: /Account/ConfirmEmail
