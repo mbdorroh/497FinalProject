@@ -6,7 +6,7 @@
 <h2 class="col-centered">Users</h2>
 
 <p>
-    @if (User.IsInRole("professor"))
+    @if (User.IsInRole("Professor"))
     {
         @Html.ActionLink("Create New", "CreateNewUser", null, new { @class = "btn btn-default" })
     }
