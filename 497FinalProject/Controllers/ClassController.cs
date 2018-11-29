@@ -157,8 +157,11 @@ namespace _497FinalProject.Controllers
             
         }
 
-        public ActionResult ApproveClass(ClassModel c)
+        public ActionResult AddRemoveClass(ClassModel c)
         {
+            //checkbox validation
+            //add or remove from list
+
             return View(c.Users);
         }
 
