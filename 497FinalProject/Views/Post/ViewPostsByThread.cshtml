@@ -39,6 +39,7 @@
         
     </body>
 }
+
 <table class="table">
     <tr>
         <th>
@@ -58,6 +59,8 @@
         </th>
         <th>
             Actions
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+            <span class="glyphicon glyphicon-thumbs-down"></span>
         </th>
     </tr>
 
@@ -82,11 +85,13 @@
             <td>
 
                 @Html.ActionLink("Delete", "DeletePost", "post", null, new { @style = "color: black;" })
+                
             </td>
         </tr>
     }
 
 </table>
+    
 <div>
     @Html.ActionLink("Back to List", "Index", "Class", null, new { @style = "color: black;" })
 </div>

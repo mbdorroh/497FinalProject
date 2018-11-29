@@ -65,39 +65,39 @@ namespace _497FinalProject.Controllers
             return View();
         }
 
-        // POST: All threads within one class
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ViewAllThreads(ThreadModel thread)
-        {
-            //put threads in thread db table into a list for each class
-            threadList.Clear();
-            foreach (var x in db.Thread)
-            {
-                if (x.ClassID == thread.ClassID)
-                {
-                    threadList.Add(x);
-                }
-            }
+        //// POST: All threads within one class
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //public ActionResult ViewAllThreads(ThreadModel thread)
+        //{
+        //    //put threads in thread db table into a list for each class
+        //    threadList.Clear();
+        //    foreach (var x in db.Thread)
+        //    {
+        //        if (x.ClassID == thread.ClassID)
+        //        {
+        //            threadList.Add(x);
+        //        }
+        //    }
 
-            //validate the class exists and redirect if not
-            var dbToList = db.Thread.ToList();
-            while (!dbToList.Exists(x => x.ClassID == thread.ClassID))
-            {
+        //    //validate the class exists and redirect if not
+        //    var dbToList = db.Thread.ToList();
+        //    while (!dbToList.Exists(x => x.ClassID == thread.ClassID))
+        //    {
                 
-                return View("Index");
-            }
-            if (threadList == null)
-            {
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("ClassThreads");
-        }
+        //        return View("Index");
+        //    }
+        //    if (threadList == null)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    return RedirectToAction("ClassThreads");
+        //}
 
-        // GET: Tweets/AuthorTweets/
-        public ActionResult ClassThreads()
-        {
-            return View(threadList);
-        }
+        //// GET: Tweets/AuthorTweets/
+        //public ActionResult ClassThreads()
+        //{
+        //    return View(threadList);
+        //}
 
 
         // GET: Class/Delete/5

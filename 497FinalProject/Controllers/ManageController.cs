@@ -172,7 +172,7 @@ namespace _497FinalProject.Controllers
                 //Send Email
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(adminUser.Email));  // replace with valid value 
-                message.From = new MailAddress("mbdorroh@crimson.ua.edu");  // replace with valid value
+                message.From = new MailAddress("monterreypowertrio@gmail.com");  // replace with valid value
                 message.Subject = "IMPORTANT: MIS Forum Account Information";
                 message.Body = string.Format("<p>You can access your account on our website with the following credentials:</p><ul><li><strong>username: </strong>" + adminUser.UserName + "</li><li><strong>password: </strong>" + password + "</li><br /><br />This is an automated email. PLEASE DO NOT REPLY");
                 message.IsBodyHtml = true;
@@ -181,8 +181,8 @@ namespace _497FinalProject.Controllers
                 {
                     var credential = new NetworkCredential
                     {
-                        UserName = "",  // replace with valid value
-                        Password = ""          // replace with valid value
+                        UserName = "monterreypowertrio@gmail.com",  // replace with valid value
+                        Password = "carterpillar"          // replace with valid value
                     };
                     smtp.Credentials = credential;
                     smtp.Host = "smtp-mail.outlook.com";

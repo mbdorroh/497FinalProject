@@ -117,36 +117,71 @@ namespace _497FinalProject.Controllers
         }
 
         // POST: All posts within one thread
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ViewPosts(PostModel post)
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //public ActionResult ViewPosts(PostModel post)
+        //{
+        //    //add to list
+        //    postList.Clear();
+        //    foreach (var x in db.Post)
+        //    {
+        //        if (x.ThreadID == post.ThreadID)
+        //        {
+        //            postList.Add(x);
+        //        }
+        //    }
+        //    //validate thread id
+        //    var dbToList = db.Post.ToList();
+        //    while (!dbToList.Exists(x => x.ThreadID == post.ThreadID))
+        //    {
+        //        return RedirectToAction("Index", "Class");
+        //    }
+
+        //    return RedirectToAction("ThreadPosts");
+        //}
+
+
+
+        //// GET: Tweets/AuthorTweets/
+        //public ActionResult ThreadPosts()
+        //{
+        //    return View(postList);
+        //}
+        public ActionResult ViewPostsByThread(string id)
         {
-            //add to list
+            //var _thread = new ThreadModel
+            //{
+            //    ThreadID = model.ThreadID,
+            //    ThreadName = model.ThreadName,
+            //    ClassID = model.ThreadID
+            //};  //put threads in thread db table into a list for each class
             postList.Clear();
             foreach (var x in db.Post)
             {
-                if (x.ThreadID == post.ThreadID)
+                if (x.ThreadID == int.Parse(id))
                 {
                     postList.Add(x);
                 }
             }
-            //validate thread id
-            var dbToList = db.Post.ToList();
-            while (!dbToList.Exists(x => x.ThreadID == post.ThreadID))
+
+            //validate the class exists and redirect if not
+            var dbToList = db.Thread.ToList();
+            while (!dbToList.Exists(x => x.ClassID == int.Parse(id)))
+            {
+
+                return View("Index");
+            }
+            if (postList == null)
             {
                 return RedirectToAction("Index", "Class");
             }
 
-            return RedirectToAction("ThreadPosts");
-        }
 
-        // GET: Tweets/AuthorTweets/
-        public ActionResult ThreadPosts()
-        {
             return View(postList);
         }
+    
 
-        // GET: Post/Delete/5
-        public ActionResult DeletePost()
+    // GET: Post/Delete/5
+    public ActionResult DeletePost()
         {
             return View();
         }
@@ -213,6 +248,12 @@ namespace _497FinalProject.Controllers
         {
             var p = db.Post.First(x => x.PostID == model.PostID);
             p.Disapproval++;
+            db.SaveChanges();
+            return View(model);
+        }
+        public ActionResult MakeSolution(PostModel model) {
+            var p = db.Post.First(x => x.PostID == model.PostID);
+            p.isSolution = true;
             db.SaveChanges();
             return View(model);
         }
