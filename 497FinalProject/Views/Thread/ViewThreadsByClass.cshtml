@@ -61,7 +61,7 @@
         @if (item.NoOfPosts != 0)
         {
             <td>
-                @Html.ActionLink("Posts", "ViewPosts", "Post", null, new { @style = "color: black;" })
+                @Html.ActionLink("Posts", "ViewPostsByThread", "Post", new { id = item.ThreadID }, null)
             </td>
         }
         else

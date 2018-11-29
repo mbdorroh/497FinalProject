@@ -67,34 +67,26 @@ namespace _497FinalProject.Controllers
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
             Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
 
-            var roleId = roles.Where(r => r.Value == "Professor").FirstOrDefault().Key;
+            var roleId = roles.Where(r => r.Value == "professor").FirstOrDefault().Key;
             var professorUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
 
-            //roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
-            //var adminUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+            roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
+            var adminUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
 
-            //roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
-            //var itUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
-            if (!RoleManager.RoleExists("Student"))
-            {
-                var createRoleResult = RoleManager.Create(new IdentityRole("Student"));
-            }
-            roleId = roles.Where(r => r.Value == "Student").FirstOrDefault().Key;
+            roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
+            var itUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+
+            roleId = roles.Where(r => r.Value == "student").FirstOrDefault().Key;
             var studentUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
 
-            if (!RoleManager.RoleExists("TA"))
-            {
-                var createRoleResult = RoleManager.Create(new IdentityRole("TA"));
-            }
             roleId = roles.Where(r => r.Value == "TA").FirstOrDefault().Key;
             var taUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
-
             
             var usersWithoutRole = users.Where(u => u.Roles.Count == 0).ToList();
 
             ViewBag.professorUsers = professorUsers;
-            //ViewBag.adminUsers = adminUsers;
-            //ViewBag.itUsers = itUsers;
+            ViewBag.adminUsers = adminUsers;
+            ViewBag.itUsers = itUsers;
             ViewBag.taUsers = taUsers;
             ViewBag.studentUsers = studentUsers;
             ViewBag.usersWithoutRole = usersWithoutRole;
@@ -180,7 +172,7 @@ namespace _497FinalProject.Controllers
                 //Send Email
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(adminUser.Email));  // replace with valid value 
-                message.From = new MailAddress("mbdorroh@crimson.ua.edu");  // replace with valid value
+                message.From = new MailAddress("monterreypowertrio@gmail.com");  // replace with valid value
                 message.Subject = "IMPORTANT: MIS Forum Account Information";
                 message.Body = string.Format("<p>You can access your account on our website with the following credentials:</p><ul><li><strong>username: </strong>" + adminUser.UserName + "</li><li><strong>password: </strong>" + password + "</li><br /><br />This is an automated email. PLEASE DO NOT REPLY");
                 message.IsBodyHtml = true;
@@ -189,8 +181,8 @@ namespace _497FinalProject.Controllers
                 {
                     var credential = new NetworkCredential
                     {
-                        UserName = "",  // replace with valid value
-                        Password = ""          // replace with valid value
+                        UserName = "monterreypowertrio@gmail.com",  // replace with valid value
+                        Password = "carterpillar"          // replace with valid value
                     };
                     smtp.Credentials = credential;
                     smtp.Host = "smtp-mail.outlook.com";
@@ -228,7 +220,7 @@ namespace _497FinalProject.Controllers
             var user = UserManager.FindById(id);
 
             Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
-            var roleId = roles.Where(r => r.Value == "Student").FirstOrDefault().Key;
+            var roleId = roles.Where(r => r.Value == "student").FirstOrDefault().Key;
 
          
             var rolesForUser = UserManager.GetRoles(id);
@@ -268,36 +260,36 @@ namespace _497FinalProject.Controllers
             Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
 
             bool isInProfessor = false;
-            bool isInAdmin = false;
+            //bool isInAdmin = false;
             bool isInStudent = false;
             bool isInTA = false;
-            bool isInIT = false;
+            //bool isInIT = false;
 
-            //var roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
-            //if (user.Roles.Any(r => r.RoleId == roleId))
-            //{
-            //    isInAdmin = true;
-            //}
+            var roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
+            if (user.Roles.Any(r => r.RoleId == roleId))
+            {
+                isInAdmin = true;
+            }
 
-           var roleId = roles.Where(r => r.Value == "Student").FirstOrDefault().Key;
+            roleId = roles.Where(r => r.Value == "student").FirstOrDefault().Key;
             if (user.Roles.Any(r => r.RoleId == roleId))
             {
                 isInStudent = true;
             }
 
-            roleId = roles.Where(r => r.Value == "TA").FirstOrDefault().Key;
+            roleId = roles.Where(r => r.Value == "ta").FirstOrDefault().Key;
             if (user.Roles.Any(r => r.RoleId == roleId))
             {
                 isInTA = true;
             }
 
-            //roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
-            //if (user.Roles.Any(r => r.RoleId == roleId))
-            //{
-            //    isInIT = true;
-            //}
+            roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
+            if (user.Roles.Any(r => r.RoleId == roleId))
+            {
+                isInIT = true;
+            }
 
-            roleId = roles.Where(r => r.Value == "Professor").FirstOrDefault().Key;
+            roleId = roles.Where(r => r.Value == "professor").FirstOrDefault().Key;
             if (user.Roles.Any(r => r.RoleId == roleId))
             {
                 isInProfessor = true;
@@ -306,10 +298,10 @@ namespace _497FinalProject.Controllers
           
 
             ViewBag.IsInProfessor = isInProfessor;
-            //ViewBag.IsInAdmin = isInAdmin;
+            ViewBag.IsInAdmin = isInAdmin;
             ViewBag.IsInStudent = isInStudent;
             ViewBag.IsInTA = isInTA;
-            //ViewBag.IsInIT = isInIT;
+            ViewBag.IsInIT = isInIT;
 
             return View(user);
         }
@@ -325,35 +317,35 @@ namespace _497FinalProject.Controllers
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
 
-            //if (form["isInIT"] != null)
-            //{
-            //    if (!UserManager.IsInRole(id, "IT"))
-            //    {
-            //        UserManager.AddToRole(id, "IT");
-            //    }
-            //}
-            //else
-            //{
-            //    if (UserManager.IsInRole(id, "IT"))
-            //    {
-            //        UserManager.RemoveFromRole(id, "IT");
-            //    }
-            //}
+            if (form["isInIT"] != null)
+            {
+                if (!UserManager.IsInRole(id, "IT"))
+                {
+                    UserManager.AddToRole(id, "IT");
+                }
+            }
+            else
+            {
+                if (UserManager.IsInRole(id, "IT"))
+                {
+                    UserManager.RemoveFromRole(id, "IT");
+                }
+            }
 
-            //if (form["isInAdmin"] != null)
-            //{
-            //    if (!UserManager.IsInRole(id, "admin"))
-            //    {
-            //        UserManager.AddToRole(id, "admin");
-            //    }
-            //}
-            //else
-            //{
-            //    if (UserManager.IsInRole(id, "admin"))
-            //    {
-            //        UserManager.RemoveFromRole(id, "admin");
-            //    }
-            //}
+            if (form["isInAdmin"] != null)
+            {
+                if (!UserManager.IsInRole(id, "admin"))
+                {
+                    UserManager.AddToRole(id, "admin");
+                }
+            }
+            else
+            {
+                if (UserManager.IsInRole(id, "admin"))
+                {
+                    UserManager.RemoveFromRole(id, "admin");
+                }
+            }
 
             if (form["isInStudent"] != null)
             {

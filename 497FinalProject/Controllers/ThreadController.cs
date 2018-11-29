@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using _497FinalProject.Models;
@@ -8,6 +9,7 @@ namespace _497FinalProject.Controllers
     public class ThreadController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        public static List<ThreadModel> threadList = new List<ThreadModel> { };
 
         // GET: Thread
         public ActionResult Index()
@@ -112,6 +114,37 @@ namespace _497FinalProject.Controllers
                 return RedirectToAction("Index", "Class");
             }
             return View(model);
+        }
+        public ActionResult ViewThreadsByClass( string id) {
+            //var _thread = new ThreadModel
+            //{
+            //    ThreadID = model.ThreadID,
+            //    ThreadName = model.ThreadName,
+            //    ClassID = model.ThreadID
+            //};  //put threads in thread db table into a list for each class
+            threadList.Clear();
+            foreach (var x in db.Thread)
+            {
+                if (x.ClassID == int.Parse(id))
+                {
+                    threadList.Add(x);
+                }
+            }
+
+//validate the class exists and redirect if not
+            var dbToList = db.Thread.ToList();
+            while (!dbToList.Exists(x => x.ClassID == int.Parse(id)))
+            {
+
+                return View("Index");
+    }
+            if (threadList == null)
+            {
+                return RedirectToAction("Index", "Class");
+            }
+            
+
+            return View(threadList);
         }
     }
 }

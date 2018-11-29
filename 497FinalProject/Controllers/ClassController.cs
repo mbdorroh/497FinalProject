@@ -92,8 +92,10 @@ namespace _497FinalProject.Controllers
             }
             return RedirectToAction("ClassThreads");
         }
+        // GET: class/{id}
 
-        // GET: Tweets/AuthorTweets/
+
+        // GET: 
         public ActionResult ClassThreads()
         {
             return View(threadList);

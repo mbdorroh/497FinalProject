@@ -280,6 +280,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -331,13 +332,13 @@
     <Content Include="Views\Thread\DeleteThread.cshtml" />
     <Content Include="Views\Account\MyAccount.cshtml" />
     <Content Include="Views\Class\Index.cshtml" />
-    <Content Include="Views\Class\ClassThreads.cshtml" />
+    <Content Include="Views\Thread\ViewThreadsByClass.cshtml" />
     <Content Include="Views\Class\ViewAllThreads.cshtml" />
     <Content Include="Views\Post\CreatePost.cshtml" />
     <Content Include="Views\Post\EditPost.cshtml" />
     <Content Include="Views\Post\DeletePost.cshtml" />
     <Content Include="Views\Post\ViewPosts.cshtml" />
-    <Content Include="Views\Post\ThreadPosts.cshtml" />
+    <Content Include="Views\Post\ViewPostsByThread.cshtml" />
     <Content Include="Views\Manage\Users.cshtml" />
     <Content Include="Views\Manage\CreateNewUser.cshtml" />
     <Content Include="Views\Manage\AssignRoles.cshtml" />
