@@ -202,5 +202,20 @@ namespace _497FinalProject.Controllers
             }
             return View(model);
         }
+        public ActionResult AddApproval(PostModel model)
+        {
+            var p = db.Post.First(x => x.PostID == model.PostID);
+            p.Approval++;
+            db.SaveChanges();
+            return View(model);
+        }
+        public ActionResult AddDisapproval(PostModel model)
+        {
+            var p = db.Post.First(x => x.PostID == model.PostID);
+            p.Disapproval++;
+            db.SaveChanges();
+            return View(model);
+        }
+
     }
 }
