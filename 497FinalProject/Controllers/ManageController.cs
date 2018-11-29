@@ -260,42 +260,40 @@ namespace _497FinalProject.Controllers
             Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
 
             bool isInProfessor = false;
-<<<<<<< HEAD
+
             //bool isInAdmin = false;
             bool isInStudent = false;
             bool isInTA = false;
             //bool isInIT = false;
-=======
-            bool isInStudent = false;
-            bool isInTA = false;
+
             
->>>>>>> parent of 04c146b... Revert "Began AddRemove & MyAccount Views"
 
-            var roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
-            if (user.Roles.Any(r => r.RoleId == roleId))
-            {
-                isInAdmin = true;
-            }
 
-            roleId = roles.Where(r => r.Value == "student").FirstOrDefault().Key;
+            //var roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
+            //if (user.Roles.Any(r => r.RoleId == roleId))
+            //{
+            //    isInAdmin = true;
+            //}
+
+            var roleId = roles.Where(r => r.Value == "Student").FirstOrDefault().Key;
             if (user.Roles.Any(r => r.RoleId == roleId))
             {
                 isInStudent = true;
             }
 
-            roleId = roles.Where(r => r.Value == "ta").FirstOrDefault().Key;
+            roleId = roles.Where(r => r.Value == "TA").FirstOrDefault().Key;
             if (user.Roles.Any(r => r.RoleId == roleId))
             {
                 isInTA = true;
             }
 
-            roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
-            if (user.Roles.Any(r => r.RoleId == roleId))
-            {
-                isInIT = true;
-            }
+            //roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
+            //if (user.Roles.Any(r => r.RoleId == roleId))
+            //{
+            //    isInIT = true;
+            //}
 
-            roleId = roles.Where(r => r.Value == "professor").FirstOrDefault().Key;
+            roleId = roles.Where(r => r.Value == "Professor").FirstOrDefault().Key;
             if (user.Roles.Any(r => r.RoleId == roleId))
             {
                 isInProfessor = true;
@@ -304,10 +302,10 @@ namespace _497FinalProject.Controllers
           
 
             ViewBag.IsInProfessor = isInProfessor;
-            ViewBag.IsInAdmin = isInAdmin;
+            //ViewBag.IsInAdmin = isInAdmin;
             ViewBag.IsInStudent = isInStudent;
             ViewBag.IsInTA = isInTA;
-            ViewBag.IsInIT = isInIT;
+            //ViewBag.IsInIT = isInIT;
 
             return View(user);
         }
