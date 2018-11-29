@@ -85,8 +85,8 @@ namespace _497FinalProject.Controllers
             var usersWithoutRole = users.Where(u => u.Roles.Count == 0).ToList();
 
             ViewBag.professorUsers = professorUsers;
-            ViewBag.adminUsers = adminUsers;
-            ViewBag.itUsers = itUsers;
+            //ViewBag.adminUsers = adminUsers;
+            //ViewBag.itUsers = itUsers;
             ViewBag.taUsers = taUsers;
             ViewBag.studentUsers = studentUsers;
             ViewBag.usersWithoutRole = usersWithoutRole;
