@@ -159,6 +159,12 @@ namespace _497FinalProject.Controllers
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
                 var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
 
+                //Make sure role exists
+                
+                if (!RoleManager.RoleExists("Student"))
+                {
+                    var createRoleResult = RoleManager.Create(new IdentityRole("Student"));
+                }
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);

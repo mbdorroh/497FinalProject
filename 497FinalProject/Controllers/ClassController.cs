@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using _497FinalProject.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace _497FinalProject.Controllers
 {
@@ -136,5 +138,29 @@ namespace _497FinalProject.Controllers
             }
             return View(model);
         }
+
+        public ActionResult JoinClass(ClassModel c)
+        {
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+
+            //Get the user
+            var user = UserManager.FindByName(User.Identity.Name);
+            var u = new UserModel()
+            {
+                Name = user.FirstName + user.LastName,
+                UserID = Int32.Parse(user.Id),
+            };
+            c.Users.Add(u);
+
+            return View();
+            
+        }
+
+        public ActionResult ApproveClass(ClassModel c)
+        {
+            return View(c.Users);
+        }
+
     }
 }
