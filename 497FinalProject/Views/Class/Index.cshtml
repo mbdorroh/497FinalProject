@@ -48,7 +48,7 @@
         @if (item.NoOfThreads != 0)
         {
             <td>
-                @Html.ActionLink("Threads", "ViewAllThreads", null, new { @style = "color: black;" })
+                @Html.ActionLink("Threads", "ViewThreadsByClass","Thread", new {id = item.ClassID }, null)
             </td>
         }
         else
