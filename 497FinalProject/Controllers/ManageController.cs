@@ -137,27 +137,28 @@ namespace _497FinalProject.Controllers
                 var createRoleResult = RoleManager.Create(new IdentityRole(roleName));
             }
 
-            //Build username
-            var username = formData["FirstName"].ToLower()[0] + formData["LastName"].ToLower();
+            ////Build username'
+      
+            //var username = formData["FirstName"].ToLower()[0] + formData["LastName"].ToLower();
 
-            if (db.Users.Any(u => u.UserName == username))
-            {
-                //increment username
-                int i = 1;
-                while (db.Users.Any(u => u.UserName == username + i))
-                {
-                    i++;
-                }
+            //if (db.Users.Any(u => u.UserName == username))
+            //{
+            //    //increment username
+            //    int i = 1;
+            //    while (db.Users.Any(u => u.UserName == username + i))
+            //    {
+            //        i++;
+            //    }
 
-                username = username + i;
-            }
+            //    username = username + i;
+            //}
 
             //Generate password
             //string password = "Alabama2018";
             string password = Membership.GeneratePassword(12, 1);
 
             //Create admin
-            var adminUser = new ApplicationUser { UserName = username, Email = formData["Email"], FirstName = formData["FirstName"], LastName = formData["LastName"]};
+            var adminUser = new ApplicationUser { UserName = formData["Email"], Email = formData["Email"], FirstName = formData["FirstName"], LastName = formData["LastName"]};
             
             var createUserResult = UserManager.Create(adminUser, password);
 
