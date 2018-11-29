@@ -268,10 +268,9 @@ namespace _497FinalProject.Controllers
             Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
 
             bool isInProfessor = false;
-            bool isInAdmin = false;
             bool isInStudent = false;
             bool isInTA = false;
-            bool isInIT = false;
+            
 
             //var roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
             //if (user.Roles.Any(r => r.RoleId == roleId))

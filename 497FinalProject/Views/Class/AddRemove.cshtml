@@ -1,0 +1,59 @@
+﻿@model _497FinalProject.Models.ClassModel
+
+@{
+    ViewBag.Title = "Add/Remove";
+}
+<br />
+<h2>Add/Remove Students</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.Label("Added: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="line-height:2.5">
+                @{
+                    if (@ViewBag.InClassList == true)
+                    {
+                        <input checked="checked" id="inClassList" name="inClassList" type="checkbox">
+                    }
+                    else
+                    {
+                        <input id="inClassList" name="inClassList" type="checkbox">
+                    }
+                }
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Removed: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="line-height:2.5">
+                @{
+                    if (@ViewBag.NotInClassList == true)
+                    {
+                        <input checked="checked" id="notInClassList" name="notInClassList" type="checkbox">
+                    }
+                    else
+                    {
+                        <input id="notInClassList" name="notInClassList" type="checkbox">
+                    }
+                }
+            </div>
+        </div>
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-crimson" />
+            </div>
+        </div>
+    </div>
+
+    //Need two lists, one for add & one for remove
+    //Look at post controller logic for adding to list
+}
+
