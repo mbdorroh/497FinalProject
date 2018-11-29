@@ -146,6 +146,12 @@ namespace _497FinalProject.Controllers
             return View();
         }
 
+        //GET: /Account/MyAccount
+        public ActionResult MyAccount()
+        {
+            return View();
+        }
+
         //
         // POST: /Account/Register
         [HttpPost]

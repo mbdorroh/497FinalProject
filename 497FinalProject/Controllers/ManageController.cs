@@ -260,10 +260,16 @@ namespace _497FinalProject.Controllers
             Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
 
             bool isInProfessor = false;
+<<<<<<< HEAD
             //bool isInAdmin = false;
             bool isInStudent = false;
             bool isInTA = false;
             //bool isInIT = false;
+=======
+            bool isInStudent = false;
+            bool isInTA = false;
+            
+>>>>>>> parent of 04c146b... Revert "Began AddRemove & MyAccount Views"
 
             var roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
             if (user.Roles.Any(r => r.RoleId == roleId))
