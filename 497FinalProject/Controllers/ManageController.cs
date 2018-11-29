@@ -67,7 +67,7 @@ namespace _497FinalProject.Controllers
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
             Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
 
-            var roleId = roles.Where(r => r.Value == "professor").FirstOrDefault().Key;
+            var roleId = roles.Where(r => r.Value == "Professor").FirstOrDefault().Key;
             var professorUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
 
             roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
