@@ -26,7 +26,7 @@ namespace _497FinalProject.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -38,9 +38,9 @@ namespace _497FinalProject.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -124,7 +124,7 @@ namespace _497FinalProject.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,41 +155,40 @@ namespace _497FinalProject.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Register(RegisterViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-                
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
 
-        //        //Make sure role exists
-                
-        //        //if (!RoleManager.RoleExists("Student"))
-        //        //{
-        //        //    var createRoleResult = RoleManager.Create(new IdentityRole("Student"));
-        //        //}
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    // Make sure role exists
 
-        //        //var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
-        //        //var result = await UserManager.CreateAsync(user, model.Password);
-        //        //if (result.Succeeded)
-        //        //{
-        //        //    var RoleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-        //        //    var RoleManage = new RoleManager<IdentityRole>(RoleStore);
-        //        //    await RoleManage.CreateAsync(new IdentityRole("Professor"));
-        //        //    await UserManager.AddToRoleAsync(user.Id, "Professor");
 
-        //        //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser:false);
+                    var RoleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var RoleManage = new RoleManager<IdentityRole>(RoleStore);
+                    if (!RoleManage.RoleExists("Student"))
+                    {
+                        var createRoleResult = RoleManage.Create(new IdentityRole("Student"));
+                    }
+                    await RoleManage.CreateAsync(new IdentityRole("Student"));
+                    await UserManager.AddToRoleAsync(user.Id, "Student");
 
-        //        //    return RedirectToAction("Index", "Home");
-        //        //}
-        //        //AddErrors(result);
-               
-        //    }
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
         //
         // GET: /Account/ConfirmEmail
