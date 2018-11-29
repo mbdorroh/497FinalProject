@@ -165,11 +165,5 @@ namespace _497FinalProject.Controllers
             return View(c.Users);
         }
 
-        //GET: Class/AddRemove
-        public ActionResult AddRemove()
-        {
-            return View();
-        }
-
     }
 }

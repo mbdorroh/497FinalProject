@@ -280,7 +280,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -342,7 +341,7 @@
     <Content Include="Views\Manage\Users.cshtml" />
     <Content Include="Views\Manage\CreateNewUser.cshtml" />
     <Content Include="Views\Manage\AssignRoles.cshtml" />
-    <Content Include="Views\Class\AddRemove.cshtml" />
+    <Content Include="Views\Manage\ClassApproval.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
