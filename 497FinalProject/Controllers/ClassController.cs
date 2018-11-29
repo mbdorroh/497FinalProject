@@ -139,6 +139,7 @@ namespace _497FinalProject.Controllers
             return View(model);
         }
 
+        //Allows user to apply for approval to join a class
         public ActionResult JoinClass(ClassModel c)
         {
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -156,6 +157,7 @@ namespace _497FinalProject.Controllers
             return View();
             
         }
+
 
         public ActionResult ApproveClass(ClassModel c)
         {
