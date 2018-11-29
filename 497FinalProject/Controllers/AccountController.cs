@@ -155,9 +155,7 @@ namespace _497FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Initialize user/role managers
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+                
 
                 //Make sure role exists
                 
@@ -166,22 +164,20 @@ namespace _497FinalProject.Controllers
                     var createRoleResult = RoleManager.Create(new IdentityRole("Student"));
                 }
 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    UserManager.AddToRole(user.Id,"Student");
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                //var result = await UserManager.CreateAsync(user, model.Password);
+                //if (result.Succeeded)
+                //{
+                //    var RoleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                //    var RoleManage = new RoleManager<IdentityRole>(RoleStore);
+                //    await RoleManage.CreateAsync(new IdentityRole("Professor"));
+                //    await UserManager.AddToRoleAsync(user.Id, "Professor");
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser:false);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
+                //    return RedirectToAction("Index", "Home");
+                //}
+                //AddErrors(result);
                
             }
 
