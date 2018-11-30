@@ -48,21 +48,30 @@
         @if (item.NoOfThreads != 0)
         {
             <td>
-                @Html.ActionLink("Threads", "ViewThreadsByClass","Thread", new {id = item.ClassID }, null)
+                @Html.ActionLink("Threads", "ViewThreadsByClass", "Thread", new { id = item.ClassID }, null)
             </td>
         }
         else
         {
             <td>
-                @Html.ActionLink("Create Thread", "CreateNewThread","Thread",  null, new { @style = "color: black;" })
+                @Html.ActionLink("Create Thread", "CreateNewThread", "Thread", null, new { @style = "color: black;" })
             </td>
         }
-
-        <td>
-            @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" })
-        </td>
+        @if (User.IsInRole("Student"))
+        {
+            <td>
+                @Html.ActionLink("Join", "JoinClass", null, new { @style = "color: black;" })
+            </td>
+        }
+        else if (User.IsInRole("Professor"))
+        {
+            <td>
+                @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" }) | @Html.ActionLink("View Classes", "AddRemove", null, new { @style = "color: black;" })
+            </td>
+        }
     </tr>
+    //If teacher, View Class list button which takes you to AddRemove View
     }
-
+    
 </table>
 
