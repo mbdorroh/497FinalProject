@@ -67,16 +67,16 @@ namespace _497FinalProject.Controllers
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
             Dictionary<string, string> roles = RoleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
 
-            var roleId = roles.Where(r => r.Value == "professor").FirstOrDefault().Key;
+            var roleId = roles.Where(r => r.Value == "Professor").FirstOrDefault().Key;
             var professorUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
 
-            roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
-            var adminUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+            //roleId = roles.Where(r => r.Value == "admin").FirstOrDefault().Key;
+            //var adminUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
 
-            roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
-            var itUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
+            //roleId = roles.Where(r => r.Value == "IT").FirstOrDefault().Key;
+            //var itUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
 
-            roleId = roles.Where(r => r.Value == "student").FirstOrDefault().Key;
+            roleId = roles.Where(r => r.Value == "Student").FirstOrDefault().Key;
             var studentUsers = users.Where(u => u.Roles.Any(r => r.RoleId == roleId)).ToList();
 
             roleId = roles.Where(r => r.Value == "TA").FirstOrDefault().Key;
@@ -85,8 +85,8 @@ namespace _497FinalProject.Controllers
             var usersWithoutRole = users.Where(u => u.Roles.Count == 0).ToList();
 
             ViewBag.professorUsers = professorUsers;
-            ViewBag.adminUsers = adminUsers;
-            ViewBag.itUsers = itUsers;
+            //ViewBag.adminUsers = adminUsers;
+            //ViewBag.itUsers = itUsers;
             ViewBag.taUsers = taUsers;
             ViewBag.studentUsers = studentUsers;
             ViewBag.usersWithoutRole = usersWithoutRole;
@@ -137,27 +137,28 @@ namespace _497FinalProject.Controllers
                 var createRoleResult = RoleManager.Create(new IdentityRole(roleName));
             }
 
-            //Build username
-            var username = formData["FirstName"].ToLower()[0] + formData["LastName"].ToLower();
+            ////Build username'
+      
+            //var username = formData["FirstName"].ToLower()[0] + formData["LastName"].ToLower();
 
-            if (db.Users.Any(u => u.UserName == username))
-            {
-                //increment username
-                int i = 1;
-                while (db.Users.Any(u => u.UserName == username + i))
-                {
-                    i++;
-                }
+            //if (db.Users.Any(u => u.UserName == username))
+            //{
+            //    //increment username
+            //    int i = 1;
+            //    while (db.Users.Any(u => u.UserName == username + i))
+            //    {
+            //        i++;
+            //    }
 
-                username = username + i;
-            }
+            //    username = username + i;
+            //}
 
             //Generate password
             //string password = "Alabama2018";
             string password = Membership.GeneratePassword(12, 1);
 
             //Create admin
-            var adminUser = new ApplicationUser { UserName = username, Email = formData["Email"], FirstName = formData["FirstName"], LastName = formData["LastName"]};
+            var adminUser = new ApplicationUser { UserName = formData["Email"], Email = formData["Email"], FirstName = formData["FirstName"], LastName = formData["LastName"]};
             
             var createUserResult = UserManager.Create(adminUser, password);
 
