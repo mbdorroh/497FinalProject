@@ -14,6 +14,7 @@ namespace _497FinalProject.Controllers
 
         ApplicationDbContext db = new ApplicationDbContext();
         public static List<PostModel> postList = new List<PostModel> { };
+        
 
         //// GET: Post
         //public ActionResult Index()
@@ -175,7 +176,7 @@ namespace _497FinalProject.Controllers
             {
                 return RedirectToAction("Index", "Class");
             }
-
+            
 
             return View(postList);
         }
@@ -248,10 +249,10 @@ namespace _497FinalProject.Controllers
             db.SaveChanges();
             return RedirectToAction("ViewPostsByThread", new { id = p.ThreadID });
         }
-        public ActionResult MakeSolution(PostModel model)
+        public ActionResult MakeSolution(string id)
         {
-
-            var p = db.Post.First(x => x.PostID == model.PostID);
+            var ID = int.Parse(id);
+            var p = db.Post.First(x => x.PostID == ID);
             p.isSolution = true;
             db.SaveChanges();
             return RedirectToAction("ViewPostsByThread", new { id = p.ThreadID });
