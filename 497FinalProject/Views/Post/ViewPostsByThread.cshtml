@@ -24,26 +24,28 @@
 
                     </div>
 
-                    <div class="col-sm-5 bg-secondary" style="background-color:darkgrey">
+                    <div class="col-sm-5 bg-info">
                         <b>  @Html.DisplayNameFor(model => model.PostBody)</b>
                         <br />@Html.DisplayFor(modelItem => item.PostBody)
 
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 bg-secondary" style="background-color:darkgrey">
                         <b>Time Posted</b>
                         <br />@Html.DisplayFor(modelItem => item.TimePost);
                     </div>
                     <div class="col-sm-1">
-                        @*@if (User.IsInRole("Professor"))
-                        {*@
-                            @Html.ActionLink("Like", "AddApproval", "Post", new { id = item.PostID }, null)
-                            @Html.DisplayFor(modelItem => item.Approval)
+                        
+                            @Html.ActionLink("Delete", "DeletePost", "Post", null, new {})
 
-                            @Html.ActionLink("Dislike", "AddDispproval", "Post", new { id = item.Disapproval }, null)
-                            @Html.DisplayFor(modelItem => item.Disapproval)
+                        
+                        @*@Html.ActionLink("Like", "AddApproval", "Post", new { id = item.PostID }, null)
+        @Html.DisplayFor(modelItem => item.Approval)
+
+        @Html.ActionLink("Dislike", "AddDispproval", "Post", new { id = item.Disapproval }, null)
+        @Html.DisplayFor(modelItem => item.Disapproval)*@
 
 
-                            
+
 
                     </div>
              
@@ -54,57 +56,7 @@
 </body>
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PostID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostUserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostBody)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimePost)
-        </th>
-        <th>
-            Actions
-            <span class="glyphicon glyphicon-thumbs-up"></span>
-            <span class="glyphicon glyphicon-thumbs-down"></span>
-        </th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostUserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostBody)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimePost)
-            </td>
-            <td>
-
-                @Html.ActionLink("Delete", "DeletePost", "Post", null, new { @style = "color: black;" })
-                
-            </td>
-        </tr>
-    }
-
-</table>
     
 <div>
     @Html.ActionLink("Back to List", "Index", "Class", null, new { @style = "color: black;" })
