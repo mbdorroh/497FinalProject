@@ -54,7 +54,7 @@
         else
         {
             <td>
-                @Html.ActionLink("Create Thread", "CreateNewThread", "Thread", new { id = item.ClassID }, null)
+                @Html.ActionLink("Create Thread", "CreateNewThread", "Thread", null, new { @style = "color: black;" })
             </td>
         }
         @if (User.IsInRole("Student"))
@@ -66,7 +66,7 @@
         else if (User.IsInRole("Professor"))
         {
             <td>
-                @Html.ActionLink("Delete", "DeleteClass", new { id = item.ClassID }, null) | @Html.ActionLink("View Classes", "AddRemove", null, new { @style = "color: black;" })
+                @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" }) | @Html.ActionLink("View Classes", "AddRemove", null, new { @style = "color: black;" })
             </td>
         }
     </tr>

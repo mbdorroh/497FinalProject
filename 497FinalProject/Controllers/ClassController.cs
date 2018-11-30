@@ -104,41 +104,41 @@ namespace _497FinalProject.Controllers
 
         // GET: Class/Delete/5
         //[Authorize(Roles = "Professor")]
-        //public ActionResult DeleteClass()
-        //{
-        //    return View();
-        //}
+        public ActionResult DeleteClass()
+        {
+            return View();
+        }
 
         // POST: Class/Delete/5
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult DeleteClass(  string id)
+        public ActionResult DeleteClass( ClassModel model, string id)
         {
             //check model is valid
             if (ModelState.IsValid)
             {
                 //create class model
-                //var c = new ClassModel
-                //{
-                //    ClassName = model.ClassName,
-                //    ClassID = int.Parse(id),
-                //    ProfessorID = model.ProfessorID
+                var c = new ClassModel
+                {
+                    ClassName = model.ClassName,
+                    ClassID = int.Parse(id),
+                    ProfessorID = model.ProfessorID
 
-                //};
+                };
                 //validate class ID exists
                 var dbToList = db.Class.ToList();
-                while (!dbToList.Exists(x => x.ClassID == int.Parse(id)))
+                while (!dbToList.Exists(x => x.ClassID == c.ClassID))
                 {
                     ModelState.AddModelError("Validate", "Class ID does not exist.");
                     return View("DeleteClass");
                 }
-                var index = db.Class.First(x => x.ClassID == int.Parse(id));
+                var index = db.Class.First(x => x.ClassID == c.ClassID);
                 //remove from database
                 db.Class.Remove(index);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Class");
             }
-            return RedirectToAction("Index", "Class");
+            return View(model);
         }
 
         public ActionResult JoinClass(ClassModel c)

@@ -33,7 +33,7 @@ namespace _497FinalProject.Controllers
         // POST: Thread/Create
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult CreateNewThread(ThreadModel t, string id )
+        public ActionResult CreateNewThread(ThreadModel t )
         {
             //check model is valid
             if (ModelState.IsValid)
@@ -42,7 +42,7 @@ namespace _497FinalProject.Controllers
                 var thread = new ThreadModel {
                     ThreadName = t.ThreadName,
                     ThreadCategory = t.ThreadCategory,
-                    ClassID = int.Parse(id),
+                    ClassID = t.ClassID,
                     DateCreated = DateTime.Now,
                     DateOfLastPost = DateTime.Now,
 
@@ -72,33 +72,38 @@ namespace _497FinalProject.Controllers
 
 
         // GET: Thread/Delete/5
-        ////[Authorize(Roles = "Professor")]
-        //public ActionResult DeleteThread()
-        //{
-        //    return View();
-        //}
+        //[Authorize(Roles = "Professor")]
+        public ActionResult DeleteThread()
+        {
+            return View();
+        }
 
         // POST: Thread/Delete/5
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult DeleteThread(  string id)
+        public ActionResult DeleteThread( ThreadModel model)
         {
             //check model is valid
             if (ModelState.IsValid)
             {
-               
+                //create thread model
+                var thread = new ThreadModel
+                {
+                    ThreadID = model.ThreadID,
+                    ThreadName = model.ThreadName,
+                };
                 //validate thread id exists
                 var dbToList = db.Thread.ToList();
-                while (!dbToList.Exists(x => x.ThreadID == int.Parse(id)))
+                while (!dbToList.Exists(x => x.ThreadID == model.ThreadID))
                 {
                     ModelState.AddModelError("Validate", "Thread ID does not exist.");
                     return View("DeleteThread");
                 }
                 //decrease no of threads per class
-                var t = db.Thread.First(x => x.ThreadID == int.Parse(id));
+                var t = db.Thread.First(x => x.ThreadID == thread.ThreadID);
                 foreach (var x in db.Class)
                 {
-                    if (x.ClassID == int.Parse(id))
+                    if (x.ClassID == model.ClassID)
                     {
                         x.NoOfThreads--;
                     }
@@ -108,7 +113,7 @@ namespace _497FinalProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Class");
             }
-            return RedirectToAction("Index", "Class");
+            return View(model);
         }
         public ActionResult ViewThreadsByClass( string id) {
             //var _thread = new ThreadModel
