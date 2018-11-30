@@ -67,15 +67,15 @@
         else
         {
             <td>
-                No Posts
+                @Html.ActionLink("Create Post", "CreatePost", "Post", new { id = item.ThreadID }, null)
             </td>
         }
 
 
-        <td>
-
-            @Html.ActionLink("Delete", "DeleteThread", "Thread", null, new { @style = "color: black;" })
-        </td>
+            <td>
+                @Html.ActionLink("Create Post", "CreatePost", "Post", new { id = item.ThreadID }, null) |
+                @Html.ActionLink("Delete", "DeleteThread", "Thread", new { id = item.ThreadID }, null)
+            </td>
     </tr>
     }
 

@@ -104,41 +104,41 @@ namespace _497FinalProject.Controllers
 
         // GET: Class/Delete/5
         //[Authorize(Roles = "Professor")]
-        public ActionResult DeleteClass()
-        {
-            return View();
-        }
+        //public ActionResult DeleteClass()
+        //{
+        //    return View();
+        //}
 
         // POST: Class/Delete/5
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult DeleteClass( ClassModel model)
+        public ActionResult DeleteClass(  string id)
         {
             //check model is valid
             if (ModelState.IsValid)
             {
                 //create class model
-                var c = new ClassModel
-                {
-                    ClassName = model.ClassName,
-                    ClassID = model.ClassID,
-                    ProfessorID = model.ProfessorID
+                //var c = new ClassModel
+                //{
+                //    ClassName = model.ClassName,
+                //    ClassID = int.Parse(id),
+                //    ProfessorID = model.ProfessorID
 
-                };
+                //};
                 //validate class ID exists
                 var dbToList = db.Class.ToList();
-                while (!dbToList.Exists(x => x.ClassID == c.ClassID))
+                while (!dbToList.Exists(x => x.ClassID == int.Parse(id)))
                 {
                     ModelState.AddModelError("Validate", "Class ID does not exist.");
                     return View("DeleteClass");
                 }
-                var index = db.Class.First(x => x.ClassID == c.ClassID);
+                var index = db.Class.First(x => x.ClassID == int.Parse(id));
                 //remove from database
                 db.Class.Remove(index);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Class");
             }
-            return View(model);
+            return RedirectToAction("Index", "Class");
         }
 
         public ActionResult JoinClass(ClassModel c, string id)

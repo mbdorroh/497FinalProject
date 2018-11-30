@@ -4,93 +4,60 @@
     ViewBag.Title = "Thread Posts";
 }
 
-<h2>View all posts within a thread</h2>
+<h2>THREAD</h2>
 
-<p>
-    @Html.ActionLink("Create New", "CreatePost", "Post", null, new { @style = "color: black;" })
-</p>
-@foreach (var item in Model)
-{
+
 
     <body>
 
-        <div class="container">
+        <div class="container-fluid" >
+            @foreach (var item in Model)
+            {
+                <div class="row.row-eq-height" style="grid-row:">
 
-            <div class="row">
+                    <div class="col-sm-3 bg-primary">
 
-                <div class="col-md-4" style="background-color:gray">
-                    
-                    <h1>  @Html.DisplayNameFor(model => model.PostID)</h1>
-                    <h2>@Html.DisplayFor(modelItem => item.PostID)</h2>
-                
+                        <b>  @Html.DisplayNameFor(model => model.PostUserName)</b>
+                        <br> @Html.DisplayFor(modelItem => item.PostUserName)
+
+                    </div>
+
+                    <div class="col-sm-5 bg-info">
+                        <b>  @Html.DisplayNameFor(model => model.PostBody)</b>
+                        <br />@Html.DisplayFor(modelItem => item.PostBody)
+
+                    </div>
+                    <div class="col-sm-3 bg-secondary" style="background-color:darkgrey">
+                        <b>Time Posted</b>
+                        <br />@Html.DisplayFor(modelItem => item.TimePost);
+                    </div>
+                    <div class="col-sm-1">
+
+                        @Html.ActionLink("Delete", "DeletePost", "Post", new { id = item.PostID }, null) |
+                        @Html.ActionLink("Edit", "EditPost", "Post", new { id = item.PostID }, null) | 
+    @Html.ActionLink("Create New", "CreatePost", "Post", new { id = item.ThreadID }, null)
+
+
+
+                        @*@Html.ActionLink("Like", "AddApproval", "Post", new { id = item.PostID }, null)
+        @Html.DisplayFor(modelItem => item.Approval)
+
+        @Html.ActionLink("Dislike", "AddDispproval", "Post", new { id = item.Disapproval }, null)
+        @Html.DisplayFor(modelItem => item.Disapproval)*@
+
+
+
+
+                    </div>
+             
+
                 </div>
-
-                <div class="col-md-6" style="background-color:lightskyblue">
-                    <h1>  @Html.DisplayNameFor(model => model.PostBody)</h1>
-                    <h2>@Html.DisplayFor(modelItem => item.PostBody)</h2>
-
-                </div>
-
-            </div>
-
-
+            }
         </div>
+</body>
 
-        
-    </body>
-}
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PostID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostUserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostBody)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimePost)
-        </th>
-        <th>
-            Actions
-            <span class="glyphicon glyphicon-thumbs-up"></span>
-            <span class="glyphicon glyphicon-thumbs-down"></span>
-        </th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostUserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostBody)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimePost)
-            </td>
-            <td>
-
-                @Html.ActionLink("Delete", "DeletePost", "post", null, new { @style = "color: black;" })
-                
-            </td>
-        </tr>
-    }
-
-</table>
     
 <div>
     @Html.ActionLink("Back to List", "Index", "Class", null, new { @style = "color: black;" })

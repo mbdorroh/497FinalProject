@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using _497FinalProject.Models;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace _497FinalProject.Controllers
 {
@@ -34,7 +35,7 @@ namespace _497FinalProject.Controllers
 
         // POST: Post/Create
         [HttpPost]
-        public ActionResult CreatePost(PostModel model)
+        public ActionResult CreatePost(PostModel model, string id)
         {
             //check model is valid
             if (ModelState.IsValid)
@@ -43,11 +44,11 @@ namespace _497FinalProject.Controllers
                 //create post model
                 var post = new PostModel
                 {
-                   PostUserName = model.PostUserName,
-                   Subject = model.Subject,
-                   PostBody = model.PostBody,
-                   TimePost = DateTime.Now,
-                   ThreadID = model.ThreadID
+                    PostUserName = model.PostUserName,
+                    Subject = model.Subject,
+                    PostBody = model.PostBody,
+                    TimePost = DateTime.Now,
+                    ThreadID = int.Parse(id)
                 };
                 //validate thread id
                 var dbToList = db.Thread.ToList();
@@ -75,7 +76,7 @@ namespace _497FinalProject.Controllers
                 //add to database
                 db.Post.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index","Class");
+                return RedirectToAction("Index", "Class");
             }
             return View(model);
         }
@@ -88,7 +89,7 @@ namespace _497FinalProject.Controllers
 
         // POST: Post/Edit/5
         [HttpPost]
-        public ActionResult EditPost(PostModel model)
+        public ActionResult EditPost(PostModel model, string id)
         {
             //check model is valid
             if (!ModelState.IsValid)
@@ -97,13 +98,13 @@ namespace _497FinalProject.Controllers
             }
             //validate post id
             var dbToList = db.Post.ToList();
-            while (!dbToList.Exists(x => x.PostID == model.PostID))
+            while (!dbToList.Exists(x => x.PostID == int.Parse(id)))
             {
                 ModelState.AddModelError("Validate", "Post ID does not exist.");
                 return View("EditPost");
             }
             //update database with changes
-            var p = db.Post.First(x => x.PostID == model.PostID);
+            var p = db.Post.First(x => x.PostID == int.Parse(id));
             p.PostBody = model.PostBody;
             p.Subject = model.Subject;
             db.SaveChanges();
@@ -164,12 +165,12 @@ namespace _497FinalProject.Controllers
             }
 
             //validate the class exists and redirect if not
-            var dbToList = db.Thread.ToList();
-            while (!dbToList.Exists(x => x.ClassID == int.Parse(id)))
-            {
+            //var dbToList = db.Thread.ToList();
+            //while (!dbToList.Exists(x => x.ClassID == int.Parse(id)))
+            //{
 
-                return View("Index");
-            }
+            //    return View("Index");
+            //}
             if (postList == null)
             {
                 return RedirectToAction("Index", "Class");
@@ -178,54 +179,48 @@ namespace _497FinalProject.Controllers
 
             return View(postList);
         }
-    
 
-    // GET: Post/Delete/5
-    public ActionResult DeletePost()
-        {
-            return View();
-        }
+
+        //// GET: Post/Delete/5
+        //public ActionResult DeletePost()
+        //{
+        //    return View();
+        //}
 
         // POST: Post/Delete/5
         [HttpPost]
-        public ActionResult DeletePost(PostModel model)
+        public ActionResult DeletePost( string id)
         {
             //check model is valid
             if (ModelState.IsValid)
             {
-                //create post model
-                var post = new PostModel
-                {
-                  PostID = model.PostID,
-                  ThreadID = model.ThreadID,
-                  PostUserName = model.PostUserName
-                };
+                
                 //validate post id
                 var list = db.Post.ToList();
-                while (!list.Exists(x => x.PostID == model.PostID))
+                while (!list.Exists(x => x.PostID == int.Parse(id)))
                 {
                     ModelState.AddModelError("Validate", "Post ID does not exist.");
                     return View("DeletePost");
                 }
-                //validate thread id
-                var dbToList = db.Thread.ToList();
-                while (!dbToList.Exists(x => x.ThreadID == post.ThreadID))
-                {
-                    ModelState.AddModelError("Validate", "Thread ID does not exist.");
-                    return View("DeletePost");
-                }
-                //validate username
-                var dbList = db.User.ToList();
-                while (!dbList.Exists(x => x.UserName == post.PostUserName))
-                {
-                    ModelState.AddModelError("Validate", "Username does not exist.");
-                    return View("DeletePost");
-                }
+                ////validate thread id
+                //var dbToList = db.Thread.ToList();
+                //while (!dbToList.Exists(x => x.ThreadID == ))
+                //{
+                //    ModelState.AddModelError("Validate", "Thread ID does not exist.");
+                //    return View("DeletePost");
+                //}
+                ////validate username
+                //var dbList = db.User.ToList();
+                //while (!dbList.Exists(x => x.UserName == post.PostUserName))
+                //{
+                //    ModelState.AddModelError("Validate", "Username does not exist.");
+                //    return View("DeletePost");
+                //}
                 //decrease no of posts
-                var p = db.Post.First(x => x.PostID == post.PostID);
+                var p = db.Post.First(x => x.PostID == int.Parse(id));
                 foreach (var x in db.Thread)
                 {
-                    if (x.ThreadID == post.ThreadID)
+                    if (x.ThreadID == p.ThreadID)
                     {
                         x.NoOfPosts--;
                     }
@@ -235,14 +230,15 @@ namespace _497FinalProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Class");
             }
-            return View(model);
+            return RedirectToAction("Index", "Class");
         }
-        public ActionResult AddApproval(PostModel model)
+        public ActionResult AddApproval(string id)
         {
-            var p = db.Post.First(x => x.PostID == model.PostID);
+            var ID = int.Parse(id);
+            var p = db.Post.First(x => x.PostID == ID);
             p.Approval++;
             db.SaveChanges();
-            return View(model);
+            return RedirectToAction("ViewPostsByThread");
         }
         public ActionResult AddDisapproval(PostModel model)
         {
@@ -251,7 +247,8 @@ namespace _497FinalProject.Controllers
             db.SaveChanges();
             return View(model);
         }
-        public ActionResult MakeSolution(PostModel model) {
+        public ActionResult MakeSolution(PostModel model)
+        {
             var p = db.Post.First(x => x.PostID == model.PostID);
             p.isSolution = true;
             db.SaveChanges();

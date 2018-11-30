@@ -44,7 +44,7 @@
     </div>
 }
 <div>
-    @Html.ActionLink("Create New Post", "CreatePost", "Post", null, new { @style = "color: black;" })
+    @Html.ActionLink("Create New Post", "CreatePost", "Post", new { id = item.PostID }, null)
 </div>
 <div>
     @Html.ActionLink("Back to List", "Index", "Class", null, new { @style = "color: black;" })

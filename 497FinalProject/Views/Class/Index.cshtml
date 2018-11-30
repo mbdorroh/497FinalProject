@@ -17,9 +17,6 @@
             @Html.DisplayNameFor(model => model.ClassName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProfessorID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Threads)
         </th>
         <th>
@@ -40,21 +37,21 @@
             @Html.DisplayFor(modelItem => item.ClassName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProfessorID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.NoOfThreads)
         </td>
         @if (item.NoOfThreads != 0)
         {
             <td>
                 @Html.ActionLink("Threads", "ViewThreadsByClass", "Thread", new { id = item.ClassID }, null)
+            
+            
+                
             </td>
         }
         else
         {
             <td>
-                @Html.ActionLink("Create Thread", "CreateNewThread", "Thread", null, new { @style = "color: black;" })
+                @Html.ActionLink("Create Thread", "CreateNewThread", "Thread", new { id = item.ClassID }, null)
             </td>
         }
         @if (User.IsInRole("Student"))
@@ -66,7 +63,11 @@
         else if (User.IsInRole("Professor"))
         {
             <td>
-                @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" }) | @Html.ActionLink("View Students", "AddRemove", null, new { @style = "color: black;" })
+
+                @Html.ActionLink("Create Thread", "CreateNewThread", "Thread", new { id = item.ClassID }, null) | @Html.ActionLink("View Students", "AddRemove", null, new { @style = "color: black;" }) |
+
+                @Html.ActionLink("Delete", "DeleteClass", new { id = item.ClassID }, null) | @Html.ActionLink("View Classes", "AddRemove", null, new { @style = "color: black;" })
+
             </td>
         }
     </tr>
