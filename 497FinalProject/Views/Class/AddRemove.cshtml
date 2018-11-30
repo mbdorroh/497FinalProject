@@ -1,4 +1,4 @@
-﻿@model _497FinalProject.Models.ApplicationUser
+﻿@model _497FinalProject.Models.ClassModel
 
 @{
     ViewBag.Title = "Add/Remove";
@@ -31,17 +31,17 @@
         </tr>
 
         @*Runs through list of Students in a class, List from Join Class*@
-        @foreach (var item in Model.Users)
+        @foreach (var item in ViewBag.classMembers)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
+                    @item.UserName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                    @item.FirstName + @item.LastName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfPosts)
+                    @item.NumberOfPosts
                 </td>
                                           
                             

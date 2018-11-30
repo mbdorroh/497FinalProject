@@ -13,7 +13,7 @@ namespace _497FinalProject.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
         public static List<ThreadModel> threadList  = new List<ThreadModel> { };
-
+        public static List<ApplicationUser> addToClassList = new List<ApplicationUser> { };
         // GET: Class
         public ActionResult Index()
         {
@@ -141,21 +141,34 @@ namespace _497FinalProject.Controllers
             return View(model);
         }
 
-        public ActionResult JoinClass(ClassModel c)
+        public ActionResult JoinClass(ClassModel c, string id)
         {
+            
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            
 
             //Get the user
-            var user = UserManager.FindByName(User.Identity.Name);
-            var u = new ApplicationUser()
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            foreach (var x in db.Users)
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Id = user.Id,
-            };
-            c.Users.Add(u);
-            ViewBag.users = c.Users;
+                if (x.Id == user.Id)
+                {
+                    addToClassList.Add(x);
+                }
+            }
+            //var u = new ApplicationUser()
+            //{
+            //    FirstName = user.FirstName,
+            //    LastName = user.LastName,
+            //    Id = user.Id,
+
+
+            //};
+
+            ViewBag.classMembers = addToClassList;
+            
+
 
             return RedirectToAction("Index", "Class");
 
@@ -168,7 +181,7 @@ namespace _497FinalProject.Controllers
             //checkbox validation
             //add or remove from list
 
-            return View(c.Users);
+            return View(addToClassList);
         }
 
         //GET: Class/AddRemove

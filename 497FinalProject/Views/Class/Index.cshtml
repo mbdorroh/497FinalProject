@@ -60,7 +60,7 @@
         @if (User.IsInRole("Student"))
         {
             <td>
-                @Html.ActionLink("Join", "JoinClass", null, new { @style = "color: black;" })
+                @Html.ActionLink("Join", "JoinClass", new { id = item.ClassID }, null)
             </td>
         }
         else if (User.IsInRole("Professor"))
