@@ -99,13 +99,14 @@ namespace _497FinalProject.Controllers
             }
             //validate post id
             var dbToList = db.Post.ToList();
-            while (!dbToList.Exists(x => x.PostID == int.Parse(id)))
+            var ID = int.Parse(id);
+            while (!dbToList.Exists(x => x.PostID == ID))
             {
                 ModelState.AddModelError("Validate", "Post ID does not exist.");
                 return View("EditPost");
             }
             //update database with changes
-            var p = db.Post.First(x => x.PostID == int.Parse(id));
+            var p = db.Post.First(x => x.PostID == ID);
             p.PostBody = model.PostBody;
             p.Subject = model.Subject;
             db.SaveChanges();
@@ -143,7 +144,7 @@ namespace _497FinalProject.Controllers
 
 
 
-        //// GET: Tweets/AuthorTweets/
+        //// GET: 
         //public ActionResult ThreadPosts()
         //{
         //    return View(postList);
@@ -157,9 +158,10 @@ namespace _497FinalProject.Controllers
             //    ClassID = model.ThreadID
             //};  //put threads in thread db table into a list for each class
             postList.Clear();
+            var ID = int.Parse(id);
             foreach (var x in db.Post)
             {
-                if (x.ThreadID == int.Parse(id))
+                if (x.ThreadID == ID)
                 {
                     postList.Add(x);
                 }
@@ -189,7 +191,8 @@ namespace _497FinalProject.Controllers
         //}
 
         // POST: Post/Delete/5
-        [HttpPost]
+        //[HttpPost]
+        [Authorize(Roles = "Professor , TA")]
         public ActionResult DeletePost( string id)
         {
             //check model is valid
@@ -198,7 +201,8 @@ namespace _497FinalProject.Controllers
                 
                 //validate post id
                 var list = db.Post.ToList();
-                while (!list.Exists(x => x.PostID == int.Parse(id)))
+                var ID = int.Parse(id);
+                while (!list.Exists(x => x.PostID == ID))
                 {
                     ModelState.AddModelError("Validate", "Post ID does not exist.");
                     return View("DeletePost");
@@ -218,7 +222,7 @@ namespace _497FinalProject.Controllers
                 //    return View("DeletePost");
                 //}
                 //decrease no of posts
-                var p = db.Post.First(x => x.PostID == int.Parse(id));
+                var p = db.Post.First(x => x.PostID == ID);
                 foreach (var x in db.Thread)
                 {
                     if (x.ThreadID == p.ThreadID)
