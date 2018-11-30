@@ -52,17 +52,6 @@
                         @Html.DisplayFor(modelItem => item.Disapproval)
                     </div>
                     
-                    <div>
-
-
-                        @if (ViewBag.IsSolution == false)
-                        {
-                            <p><a class="btn btn-default" href="@Html.ActionLink("", "MakeSolution", "Post", new { id = item.PostID }, null)"> Make Solution </a></p>
-
-                        }
-
-                    </div>
-                    
                    
                 </div>
             }
