@@ -112,7 +112,7 @@ namespace _497FinalProject.Controllers
         // POST: Class/Delete/5
         [HttpPost]
         //[Authorize(Roles = "Professor")]
-        public ActionResult DeleteClass( ClassModel model)
+        public ActionResult DeleteClass( ClassModel model, string id)
         {
             //check model is valid
             if (ModelState.IsValid)
@@ -121,7 +121,7 @@ namespace _497FinalProject.Controllers
                 var c = new ClassModel
                 {
                     ClassName = model.ClassName,
-                    ClassID = model.ClassID,
+                    ClassID = int.Parse(id),
                     ProfessorID = model.ProfessorID
 
                 };
