@@ -29,7 +29,7 @@ namespace _497FinalProject.Controllers
         //}
 
         // GET: Class/Create
-        //[Authorize(Roles = "Professor")]
+        [Authorize(Roles = "Professor")]
         public ActionResult CreateNewClass()
         {
             return View();
@@ -37,7 +37,7 @@ namespace _497FinalProject.Controllers
 
         // POST: Class/Create
         [HttpPost]
-        //[Authorize(Roles = "Professor")]
+        [Authorize(Roles = "Professor")]
         public ActionResult CreateNewClass(ClassModel model)
         {
            
@@ -110,8 +110,8 @@ namespace _497FinalProject.Controllers
         //}
 
         // POST: Class/Delete/5
-        [HttpPost]
-        //[Authorize(Roles = "Professor")]
+        //[HttpPost]
+        [Authorize(Roles = "Professor")]
         public ActionResult DeleteClass(  string id)
         {
             //check model is valid
@@ -127,12 +127,13 @@ namespace _497FinalProject.Controllers
                 //};
                 //validate class ID exists
                 var dbToList = db.Class.ToList();
-                while (!dbToList.Exists(x => x.ClassID == int.Parse(id)))
+                var ID = int.Parse(id);
+                while (!dbToList.Exists(x => x.ClassID == ID))
                 {
                     ModelState.AddModelError("Validate", "Class ID does not exist.");
                     return View("DeleteClass");
                 }
-                var index = db.Class.First(x => x.ClassID == int.Parse(id));
+                var index = db.Class.First(x => x.ClassID == ID);
                 //remove from database
                 db.Class.Remove(index);
                 db.SaveChanges();
