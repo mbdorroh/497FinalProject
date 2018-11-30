@@ -33,22 +33,33 @@
                     </div>
                     <div class="col-sm-1">
 
-                        @Html.ActionLink("Delete", "DeletePost", "Post", new { id = item.PostID }, null) |
-                        @Html.ActionLink("Edit", "EditPost", "Post", new { id = item.PostID }, null) | 
-    @Html.ActionLink("Create New", "CreatePost", "Post", new { id = item.ThreadID }, null)
-
-
-
-                        @*@Html.ActionLink("Like", "AddApproval", "Post", new { id = item.PostID }, null)
-        @Html.DisplayFor(modelItem => item.Approval)
-
-        @Html.ActionLink("Dislike", "AddDispproval", "Post", new { id = item.Disapproval }, null)
-        @Html.DisplayFor(modelItem => item.Disapproval)*@
-
-
-
-
+                        @if (User.IsInRole("Student"))
+                        {
+                            @Html.ActionLink("Create New", "CreatePost", "Post", new { id = item.ThreadID }, null)
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Delete", "DeletePost", "Post", new { id = item.PostID }, null) 
+                            @Html.ActionLink("Edit", "EditPost", "Post", new { id = item.PostID }, null)
+                            @Html.ActionLink("Create New", "CreatePost", "Post", new { id = item.ThreadID }, null)
+                        }
                     </div>
+                    <div>
+                        @Html.ActionLink("Like", "AddApproval", "Post", new { id = item.PostID }, null)
+                        @Html.DisplayFor(modelItem => item.Approval)
+
+                        @Html.ActionLink("Dislike", "AddDisapproval", "Post", new { id = item.PostID }, null)
+                        @Html.DisplayFor(modelItem => item.Disapproval)
+                    </div>
+                   
+                       
+                    
+                      
+
+
+
+
+                   
              
 
                 </div>

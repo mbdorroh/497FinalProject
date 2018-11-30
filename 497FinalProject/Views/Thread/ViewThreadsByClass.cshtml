@@ -5,10 +5,13 @@
 }
 
 <h2>View All Threads within a class</h2>
+@if (User.IsInRole("Professor"))
+{
+    <p>
+        @Html.ActionLink("Create New", "CreateNewThread", "Thread", null, new { @style = "color: black;" })
+    </p>
+}
 
-<p>
-    @Html.ActionLink("Create New", "CreateNewThread", "Thread", null, new { @style = "color: black;" })
-</p>
 <table class="table">
     <tr>
         <th>
@@ -30,7 +33,7 @@
             @Html.DisplayNameFor(model => model.DateOfLastPost)
         </th>
         <th>
-           Posts
+            Posts
         </th>
         <th>
             Actions
@@ -71,11 +74,20 @@
             </td>
         }
 
-
+        @if (User.IsInRole("Professor"))
+        {
             <td>
                 @Html.ActionLink("Create Post", "CreatePost", "Post", new { id = item.ThreadID }, null) |
                 @Html.ActionLink("Delete", "DeleteThread", "Thread", new { id = item.ThreadID }, null)
             </td>
+        }
+        else
+        {
+            <td>
+                @Html.ActionLink("Create Post", "CreatePost", "Post", new { id = item.ThreadID }, null) 
+            </td>
+        }
+
     </tr>
     }
 

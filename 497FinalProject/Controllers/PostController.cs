@@ -238,21 +238,23 @@ namespace _497FinalProject.Controllers
             var p = db.Post.First(x => x.PostID == ID);
             p.Approval++;
             db.SaveChanges();
-            return RedirectToAction("ViewPostsByThread");
+            return RedirectToAction("ViewPostsByThread",  new { id = p.ThreadID });
         }
-        public ActionResult AddDisapproval(PostModel model)
+        public ActionResult AddDisapproval(string id)
         {
-            var p = db.Post.First(x => x.PostID == model.PostID);
+            var ID = int.Parse(id);
+            var p = db.Post.First(x => x.PostID == ID);
             p.Disapproval++;
             db.SaveChanges();
-            return View(model);
+            return RedirectToAction("ViewPostsByThread", new { id = p.ThreadID });
         }
         public ActionResult MakeSolution(PostModel model)
         {
+
             var p = db.Post.First(x => x.PostID == model.PostID);
             p.isSolution = true;
             db.SaveChanges();
-            return View(model);
+            return RedirectToAction("ViewPostsByThread", new { id = p.ThreadID });
         }
 
     }

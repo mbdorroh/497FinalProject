@@ -322,35 +322,35 @@ namespace _497FinalProject.Controllers
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
 
-            if (form["isInIT"] != null)
-            {
-                if (!UserManager.IsInRole(id, "IT"))
-                {
-                    UserManager.AddToRole(id, "IT");
-                }
-            }
-            else
-            {
-                if (UserManager.IsInRole(id, "IT"))
-                {
-                    UserManager.RemoveFromRole(id, "IT");
-                }
-            }
+            //if (form["isInIT"] != null)
+            //{
+            //    if (!UserManager.IsInRole(id, "IT"))
+            //    {
+            //        UserManager.AddToRole(id, "IT");
+            //    }
+            //}
+            //else
+            //{
+            //    if (UserManager.IsInRole(id, "IT"))
+            //    {
+            //        UserManager.RemoveFromRole(id, "IT");
+            //    }
+            //}
 
-            if (form["isInAdmin"] != null)
-            {
-                if (!UserManager.IsInRole(id, "admin"))
-                {
-                    UserManager.AddToRole(id, "admin");
-                }
-            }
-            else
-            {
-                if (UserManager.IsInRole(id, "admin"))
-                {
-                    UserManager.RemoveFromRole(id, "admin");
-                }
-            }
+            //if (form["isInAdmin"] != null)
+            //{
+            //    if (!UserManager.IsInRole(id, "admin"))
+            //    {
+            //        UserManager.AddToRole(id, "admin");
+            //    }
+            //}
+            //else
+            //{
+            //    if (UserManager.IsInRole(id, "admin"))
+            //    {
+            //        UserManager.RemoveFromRole(id, "admin");
+            //    }
+            //}
 
             if (form["isInStudent"] != null)
             {
@@ -384,16 +384,16 @@ namespace _497FinalProject.Controllers
 
             if (form["isInProfessor"] != null)
             {
-                if (!UserManager.IsInRole(id, "professor"))
+                if (!UserManager.IsInRole(id, "Professor"))
                 {
-                    UserManager.AddToRole(id, "professor");
+                    UserManager.AddToRole(id, "Professor");
                 }
             }
             else
             {
-                if (UserManager.IsInRole(id, "professor"))
+                if (UserManager.IsInRole(id, "Professor"))
                 {
-                    UserManager.RemoveFromRole(id, "professor");
+                    UserManager.RemoveFromRole(id, "Professor");
                 }
             }
 
