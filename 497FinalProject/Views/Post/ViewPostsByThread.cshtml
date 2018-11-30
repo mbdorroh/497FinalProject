@@ -34,9 +34,17 @@
                         <br />@Html.DisplayFor(modelItem => item.TimePost);
                     </div>
                     <div class="col-sm-1">
-                        <span class="glyphicon glyphicon-thumbs-up"></span>  @Html.DisplayFor(modelItem => item.Approval)
-                         <br />
-                         <span class="glyphicon glyphicon-thumbs-down"></span> @Html.DisplayFor(modelItem => item.Disapproval)
+                        @*@if (User.IsInRole("Professor"))
+                        {*@
+                            @Html.ActionLink("Like", "AddApproval", "Post", new { id = item.PostID }, null)
+                            @Html.DisplayFor(modelItem => item.Approval)
+
+                            @Html.ActionLink("Dislike", "AddDispproval", "Post", new { id = item.Disapproval }, null)
+                            @Html.DisplayFor(modelItem => item.Disapproval)
+
+
+                            
+
                     </div>
              
 
@@ -90,7 +98,7 @@
             </td>
             <td>
 
-                @Html.ActionLink("Delete", "DeletePost", "post", null, new { @style = "color: black;" })
+                @Html.ActionLink("Delete", "DeletePost", "Post", null, new { @style = "color: black;" })
                 
             </td>
         </tr>

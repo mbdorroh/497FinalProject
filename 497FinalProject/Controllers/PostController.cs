@@ -237,12 +237,13 @@ namespace _497FinalProject.Controllers
             }
             return View(model);
         }
-        public ActionResult AddApproval(PostModel model)
+        public ActionResult AddApproval(string id)
         {
-            var p = db.Post.First(x => x.PostID == model.PostID);
+            var ID = int.Parse(id);
+            var p = db.Post.First(x => x.PostID == ID);
             p.Approval++;
             db.SaveChanges();
-            return View(model);
+            return RedirectToAction("ViewPostsByThread");
         }
         public ActionResult AddDisapproval(PostModel model)
         {
