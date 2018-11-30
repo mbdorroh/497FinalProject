@@ -54,7 +54,7 @@
         else
         {
             <td>
-                @Html.ActionLink("Create Thread", "CreateNewThread", "Thread", null, new { @style = "color: black;" })
+                @Html.ActionLink("Create Thread", "CreateNewThread", "Thread", new { id = item.ClassID }, null)
             </td>
         }
         @if (User.IsInRole("Student"))
@@ -66,7 +66,11 @@
         else if (User.IsInRole("Professor"))
         {
             <td>
-                @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" }) | @Html.ActionLink("View Classes", "AddRemove", null, new { @style = "color: black;" })
+<<<<<<< HEAD
+                @Html.ActionLink("Delete", "DeleteClass", null, new { @style = "color: black;" }) | @Html.ActionLink("View Students", "AddRemove", null, new { @style = "color: black;" })
+=======
+                @Html.ActionLink("Delete", "DeleteClass", new { id = item.ClassID }, null) | @Html.ActionLink("View Classes", "AddRemove", null, new { @style = "color: black;" })
+>>>>>>> parent of 5f09aff... Revert "Create/Delete fixed"
             </td>
         }
     </tr>
