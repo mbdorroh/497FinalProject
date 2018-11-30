@@ -148,12 +148,14 @@ namespace _497FinalProject.Controllers
 
             //Get the user
             var user = UserManager.FindByName(User.Identity.Name);
-            var u = new UserModel()
+            var u = new ApplicationUser()
             {
-                Name = user.FirstName + user.LastName,
-                UserID = Int32.Parse(user.Id),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Id = user.Id,
             };
             c.Users.Add(u);
+            ViewBag.users = c.Users;
 
             return RedirectToAction("Index", "Class");
 

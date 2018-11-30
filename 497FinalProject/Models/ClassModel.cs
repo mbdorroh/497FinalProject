@@ -20,7 +20,7 @@ namespace _497FinalProject.Models
         [Required]
         public int ProfessorID { get; set; }
         public virtual ICollection<ThreadModel> Threads { get; set; }
-        public virtual ICollection<UserModel> Users { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
         [Display(Name = "No. of Threads")]
         public int NoOfThreads { get; set; }
         public IEnumerator<ClassModel> GetEnumerator()
