@@ -5,9 +5,7 @@
 }
 
 <h2>THREAD</h2>
-<p>
-    @Html.ActionLink("Create New", "CreatePost", "Post", null, new { @style = "color: black;" })
-</p>
+
 
 
     <body>
@@ -34,10 +32,13 @@
                         <br />@Html.DisplayFor(modelItem => item.TimePost);
                     </div>
                     <div class="col-sm-1">
-                        
-                            @Html.ActionLink("Delete", "DeletePost", "Post", null, new {})
 
-                        
+                        @Html.ActionLink("Delete", "DeletePost", "Post", new { id = item.PostID }, null) |
+                        @Html.ActionLink("Edit", "EditPost", "Post", new { id = item.PostID }, null) | 
+    @Html.ActionLink("Create New", "CreatePost", "Post", new { id = item.ThreadID }, null)
+
+
+
                         @*@Html.ActionLink("Like", "AddApproval", "Post", new { id = item.PostID }, null)
         @Html.DisplayFor(modelItem => item.Approval)
 

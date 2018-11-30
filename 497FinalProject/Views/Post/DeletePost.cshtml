@@ -39,7 +39,7 @@
     </div>
 }
 <div>
-    @Html.ActionLink("Create New Post", "CreatePost", "Post", null, new { @style = "color: black;" })
+    @Html.ActionLink("Create New Post", "CreatePost", "Post", new { id = Model.ThreadID }, null)
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

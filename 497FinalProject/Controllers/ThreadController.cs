@@ -49,7 +49,7 @@ namespace _497FinalProject.Controllers
                 };
                 //validate class ID exists
                 var dbToList = db.Class.ToList();
-                while (!dbToList.Exists(x => x.ClassID == t.ClassID))
+                while (!dbToList.Exists(x => x.ClassID == int.Parse(id)))
                 {
                     ModelState.AddModelError("Validate", "Class ID does not exist.");
                     return View("CreateNewThread");
@@ -57,7 +57,7 @@ namespace _497FinalProject.Controllers
                 //increase no of threads for class ID
                 foreach (var x in db.Class)
                 {
-                    if (x.ClassID== t.ClassID)
+                    if (x.ClassID== int.Parse(id))
                     {
                         x.NoOfThreads++;
                     }
