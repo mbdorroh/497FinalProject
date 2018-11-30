@@ -155,9 +155,11 @@ namespace _497FinalProject.Controllers
             };
             c.Users.Add(u);
 
-            return View();
-            
+            return RedirectToAction("Index", "Class");
+
         }
+
+        
 
         public ActionResult AddRemoveClass(ClassModel c)
         {
